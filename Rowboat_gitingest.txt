@@ -1,0 +1,5760 @@
+Directory structure:
+└── rowboatlabs-rowboat/
+    ├── build-electron.sh
+    ├── Dockerfile.qdrant
+    ├── start.sh
+    ├── apps/
+    │   ├── cli/
+    │   │   ├── todo.md
+    │   │   ├── tsconfig.json
+    │   │   └── src/
+    │   │       ├── agents/
+    │   │       │   └── agents.ts
+    │   │       ├── application/
+    │   │       │   ├── assistant/
+    │   │       │   │   └── agent.ts
+    │   │       │   └── lib/
+    │   │       │       ├── exec-tool.ts
+    │   │       │       └── random-id.ts
+    │   │       ├── config/
+    │   │       │   └── config.ts
+    │   │       ├── entities/
+    │   │       │   └── example.ts
+    │   │       ├── examples/
+    │   │       │   └── index.ts
+    │   │       ├── runs/
+    │   │       │   └── lock.ts
+    │   │       ├── scripts/
+    │   │       │   └── migrate-agents.ts
+    │   │       ├── shared/
+    │   │       │   └── prefix-logger.ts
+    │   │       └── tui/
+    │   │           └── index.tsx
+    │   ├── docs/
+    │   │   └── docs/
+    │   │       └── development/
+    │   │           └── roadmap.mdx
+    │   ├── experimental/
+    │   │   ├── chat_widget/
+    │   │   │   ├── next.config.mjs
+    │   │   │   ├── package.json
+    │   │   │   ├── postcss.config.mjs
+    │   │   │   ├── tailwind.config.ts
+    │   │   │   ├── tsconfig.json
+    │   │   │   ├── .dockerignore
+    │   │   │   ├── .eslintrc.json
+    │   │   │   └── app/
+    │   │   │       ├── globals.css
+    │   │   │       ├── layout.tsx
+    │   │   │       ├── page.tsx
+    │   │   │       ├── providers.tsx
+    │   │   │       └── api/
+    │   │   │           └── bootstrap.js/
+    │   │   │               └── route.ts
+    │   │   ├── simulation_runner/
+    │   │   │   ├── __init__.py
+    │   │   │   ├── Dockerfile
+    │   │   │   └── requirements.txt
+    │   │   └── tools_webhook/
+    │   │       ├── __init__.py
+    │   │       ├── Dockerfile
+    │   │       ├── function_map.py
+    │   │       ├── requirements.txt
+    │   │       └── tests/
+    │   │           └── __init__.py
+    │   ├── python-sdk/
+    │   │   ├── pyproject.toml
+    │   │   ├── requirements.txt
+    │   │   └── src/
+    │   │       └── rowboat/
+    │   │           └── __init__.py
+    │   ├── rowboat/
+    │   │   ├── components.json
+    │   │   ├── instrumentation-client.ts
+    │   │   ├── next.config.mjs
+    │   │   ├── postcss.config.mjs
+    │   │   ├── tsconfig.json
+    │   │   ├── .dockerignore
+    │   │   ├── .eslintrc.json
+    │   │   ├── app/
+    │   │   │   ├── browserconfig.xml
+    │   │   │   ├── hero.ts
+    │   │   │   ├── layout.tsx
+    │   │   │   ├── loading.tsx
+    │   │   │   ├── new-chat-link.tsx
+    │   │   │   ├── page.tsx
+    │   │   │   ├── providers.tsx
+    │   │   │   ├── site.webmanifest
+    │   │   │   ├── api/
+    │   │   │   │   ├── me/
+    │   │   │   │   │   └── route.ts
+    │   │   │   │   ├── tmp-images/
+    │   │   │   │   │   └── [id]/
+    │   │   │   │   │       └── route.ts
+    │   │   │   │   └── twilio/
+    │   │   │   │       └── utils.ts
+    │   │   │   ├── billing/
+    │   │   │   │   ├── layout.tsx
+    │   │   │   │   ├── page.tsx
+    │   │   │   │   └── callback/
+    │   │   │   │       └── page.tsx
+    │   │   │   ├── lib/
+    │   │   │   │   ├── auth0.ts
+    │   │   │   │   ├── embedding.ts
+    │   │   │   │   ├── loadenv.ts
+    │   │   │   │   ├── project_templates.ts
+    │   │   │   │   ├── qdrant.ts
+    │   │   │   │   ├── redis.ts
+    │   │   │   │   ├── uploads_s3_client.ts
+    │   │   │   │   ├── utils.ts
+    │   │   │   │   ├── components/
+    │   │   │   │   │   ├── datasource-icon.tsx
+    │   │   │   │   │   ├── dropdown.tsx
+    │   │   │   │   │   ├── form-section.tsx
+    │   │   │   │   │   ├── form-status-button-old.tsx
+    │   │   │   │   │   ├── form-status-button.tsx
+    │   │   │   │   │   ├── label.tsx
+    │   │   │   │   │   ├── menu-item.tsx
+    │   │   │   │   │   ├── page-section.tsx
+    │   │   │   │   │   └── pagination.tsx
+    │   │   │   │   └── types/
+    │   │   │   │       ├── api_types.ts
+    │   │   │   │       ├── datasource_types.ts
+    │   │   │   │       └── voice_types.ts
+    │   │   │   ├── onboarding/
+    │   │   │   │   ├── layout.tsx
+    │   │   │   │   └── page.tsx
+    │   │   │   ├── projects/
+    │   │   │   │   ├── app.tsx
+    │   │   │   │   ├── layout.tsx
+    │   │   │   │   ├── page.tsx
+    │   │   │   │   ├── [projectId]/
+    │   │   │   │   │   ├── layout.tsx
+    │   │   │   │   │   ├── page.tsx
+    │   │   │   │   │   ├── config/
+    │   │   │   │   │   │   ├── page.tsx
+    │   │   │   │   │   │   └── components/
+    │   │   │   │   │   │       └── shared-styles.ts
+    │   │   │   │   │   ├── conversations/
+    │   │   │   │   │   │   ├── page.tsx
+    │   │   │   │   │   │   └── [conversationId]/
+    │   │   │   │   │   │       └── page.tsx
+    │   │   │   │   │   ├── copilot/
+    │   │   │   │   │   │   ├── example.md
+    │   │   │   │   │   │   └── use-parsed-blocks.tsx
+    │   │   │   │   │   ├── jobs/
+    │   │   │   │   │   │   ├── page.tsx
+    │   │   │   │   │   │   └── [jobId]/
+    │   │   │   │   │   │       └── page.tsx
+    │   │   │   │   │   ├── manage-triggers/
+    │   │   │   │   │   │   ├── page.tsx
+    │   │   │   │   │   │   ├── recurring/
+    │   │   │   │   │   │   │   ├── [ruleId]/
+    │   │   │   │   │   │   │   │   └── page.tsx
+    │   │   │   │   │   │   │   └── new/
+    │   │   │   │   │   │   │       └── page.tsx
+    │   │   │   │   │   │   ├── scheduled/
+    │   │   │   │   │   │   │   ├── [ruleId]/
+    │   │   │   │   │   │   │   │   └── page.tsx
+    │   │   │   │   │   │   │   └── new/
+    │   │   │   │   │   │   │       └── page.tsx
+    │   │   │   │   │   │   └── triggers/
+    │   │   │   │   │   │       └── [deploymentId]/
+    │   │   │   │   │   │           └── page.tsx
+    │   │   │   │   │   ├── playground/
+    │   │   │   │   │   │   └── copilot-prompts.ts
+    │   │   │   │   │   ├── sources/
+    │   │   │   │   │   │   ├── page.tsx
+    │   │   │   │   │   │   ├── [sourceId]/
+    │   │   │   │   │   │   │   └── page.tsx
+    │   │   │   │   │   │   ├── components/
+    │   │   │   │   │   │   │   ├── delete.tsx
+    │   │   │   │   │   │   │   ├── shared.tsx
+    │   │   │   │   │   │   │   └── web-recrawl.tsx
+    │   │   │   │   │   │   └── new/
+    │   │   │   │   │   │       └── page.tsx
+    │   │   │   │   │   ├── tools/
+    │   │   │   │   │   │   └── oauth/
+    │   │   │   │   │   │       └── callback/
+    │   │   │   │   │   │           └── page.tsx
+    │   │   │   │   │   └── workflow/
+    │   │   │   │   │       ├── error.tsx
+    │   │   │   │   │       ├── loading.tsx
+    │   │   │   │   │       └── pane.tsx
+    │   │   │   │   └── layout/
+    │   │   │   │       ├── index.tsx
+    │   │   │   │       └── components/
+    │   │   │   │           └── menu-item.tsx
+    │   │   │   ├── scripts/
+    │   │   │   │   ├── delete_qdrant.ts
+    │   │   │   │   ├── job-rules.worker.ts
+    │   │   │   │   ├── mongodb-drop-indexes.ts
+    │   │   │   │   ├── mongodb-ensure-indexes.ts
+    │   │   │   │   └── setup_qdrant.ts
+    │   │   │   └── styles/
+    │   │   │       └── pane-effects.ts
+    │   │   ├── components/
+    │   │   │   ├── common/
+    │   │   │   │   ├── copy-as-json-button.tsx
+    │   │   │   │   └── copy-button.tsx
+    │   │   │   └── ui/
+    │   │   │       ├── horizontal-divider.tsx
+    │   │   │       ├── page-header.tsx
+    │   │   │       ├── page-heading.tsx
+    │   │   │       ├── section-heading.tsx
+    │   │   │       ├── switch.tsx
+    │   │   │       └── tabs.tsx
+    │   │   ├── hooks/
+    │   │   │   └── use-click-away.ts
+    │   │   ├── lib/
+    │   │   │   ├── utils.ts
+    │   │   │   └── utils/
+    │   │   │       └── date.ts
+    │   │   ├── public/
+    │   │   │   └── mcp-server-images/
+    │   │   │       ├── firecrawl.webp
+    │   │   │       ├── klavis.webp
+    │   │   │       └── markdown2doc.webp
+    │   │   └── src/
+    │   │       ├── application/
+    │   │       │   ├── lib/
+    │   │       │   │   ├── copilot/
+    │   │       │   │   │   └── current_workflow.ts
+    │   │       │   │   └── utils/
+    │   │       │   │       └── time-to-next-minute.ts
+    │   │       │   ├── policies/
+    │   │       │   │   └── usage-quota.policy.interface.ts
+    │   │       │   ├── repositories/
+    │   │       │   │   └── users.repository.interface.ts
+    │   │       │   └── services/
+    │   │       │       └── uploads-storage.service.interface.ts
+    │   │       ├── entities/
+    │   │       │   ├── common/
+    │   │       │   │   └── paginated-list.ts
+    │   │       │   ├── errors/
+    │   │       │   │   ├── common.ts
+    │   │       │   │   └── job-errors.ts
+    │   │       │   └── models/
+    │   │       │       ├── api-key.ts
+    │   │       │       ├── composio-trigger-deployment.ts
+    │   │       │       ├── composio-trigger-type.ts
+    │   │       │       ├── conversation.ts
+    │   │       │       ├── data-source.ts
+    │   │       │       ├── project-member.ts
+    │   │       │       ├── project.ts
+    │   │       │       ├── recurring-job-rule.ts
+    │   │       │       ├── scheduled-job-rule.ts
+    │   │       │       └── user.ts
+    │   │       └── infrastructure/
+    │   │           ├── repositories/
+    │   │           │   ├── mongodb.api-keys.indexes.ts
+    │   │           │   ├── mongodb.composio-trigger-deployments.indexes.ts
+    │   │           │   ├── mongodb.conversations.indexes.ts
+    │   │           │   ├── mongodb.data-source-docs.indexes.ts
+    │   │           │   ├── mongodb.data-sources.indexes.ts
+    │   │           │   ├── mongodb.jobs.indexes.ts
+    │   │           │   ├── mongodb.project-members.indexes.ts
+    │   │           │   ├── mongodb.projects.indexes.ts
+    │   │           │   ├── mongodb.recurring-job-rules.indexes.ts
+    │   │           │   ├── mongodb.scheduled-job-rules.indexes.ts
+    │   │           │   ├── mongodb.shared-workflows.indexes.ts
+    │   │           │   └── mongodb.users.indexes.ts
+    │   │           └── services/
+    │   │               └── redis.cache.service.ts
+    │   ├── rowboatx/
+    │   │   ├── components.json
+    │   │   ├── eslint.config.mjs
+    │   │   ├── global.d.ts
+    │   │   ├── next.config.ts
+    │   │   ├── postcss.config.mjs
+    │   │   ├── tsconfig.json
+    │   │   ├── app/
+    │   │   │   └── layout.tsx
+    │   │   ├── components/
+    │   │   │   ├── markdown-viewer.tsx
+    │   │   │   ├── ai-elements/
+    │   │   │   │   ├── canvas.tsx
+    │   │   │   │   ├── connection.tsx
+    │   │   │   │   ├── controls.tsx
+    │   │   │   │   ├── image.tsx
+    │   │   │   │   ├── panel.tsx
+    │   │   │   │   └── toolbar.tsx
+    │   │   │   └── ui/
+    │   │   │       ├── collapsible.tsx
+    │   │   │       ├── input.tsx
+    │   │   │       ├── progress.tsx
+    │   │   │       ├── separator.tsx
+    │   │   │       ├── skeleton.tsx
+    │   │   │       └── textarea.tsx
+    │   │   ├── hooks/
+    │   │   │   └── use-mobile.ts
+    │   │   ├── lib/
+    │   │   │   └── utils.ts
+    │   │   └── types/
+    │   │       └── turndown.d.ts
+    │   └── x/
+    │       ├── package.json
+    │       ├── pnpm-workspace.yaml
+    │       ├── tsconfig.base.json
+    │       ├── apps/
+    │       │   ├── main/
+    │       │   │   ├── tsconfig.json
+    │       │   │   └── src/
+    │       │   │       └── test-agent.ts
+    │       │   ├── preload/
+    │       │   │   ├── package.json
+    │       │   │   └── tsconfig.json
+    │       │   └── renderer/
+    │       │       ├── components.json
+    │       │       ├── eslint.config.js
+    │       │       ├── tsconfig.app.json
+    │       │       ├── tsconfig.json
+    │       │       ├── tsconfig.node.json
+    │       │       ├── vite.config.ts
+    │       │       └── src/
+    │       │           ├── index.css
+    │       │           ├── main.tsx
+    │       │           ├── components/
+    │       │           │   ├── ai-elements/
+    │       │           │   │   └── markdown-code-override.tsx
+    │       │           │   └── ui/
+    │       │           │       ├── collapsible.tsx
+    │       │           │       ├── input.tsx
+    │       │           │       ├── progress.tsx
+    │       │           │       ├── separator.tsx
+    │       │           │       ├── skeleton.tsx
+    │       │           │       ├── sonner.tsx
+    │       │           │       └── textarea.tsx
+    │       │           ├── contexts/
+    │       │           │   └── file-card-context.tsx
+    │       │           ├── hooks/
+    │       │           │   ├── use-debounce.ts
+    │       │           │   └── use-mobile.ts
+    │       │           └── lib/
+    │       │               ├── google-client-id-store.ts
+    │       │               ├── mention-files.ts
+    │       │               ├── utils.ts
+    │       │               └── wiki-links.ts
+    │       └── packages/
+    │           ├── core/
+    │           │   ├── tsconfig.json
+    │           │   └── src/
+    │           │       ├── index.ts
+    │           │       ├── application/
+    │           │       │   └── assistant/
+    │           │       │       └── agent.ts
+    │           │       ├── auth/
+    │           │       │   └── provider-client-id.ts
+    │           │       ├── composio/
+    │           │       │   └── index.ts
+    │           │       ├── knowledge/
+    │           │       │   ├── limit_event_items.ts
+    │           │       │   └── granola/
+    │           │       │       └── index.ts
+    │           │       ├── pre_built/
+    │           │       │   ├── index.ts
+    │           │       │   └── types.ts
+    │           │       ├── runs/
+    │           │       │   ├── bus.ts
+    │           │       │   └── lock.ts
+    │           │       └── services/
+    │           │           └── service_bus.ts
+    │           └── shared/
+    │               ├── package.json
+    │               ├── tsconfig.json
+    │               └── src/
+    │                   ├── agent-schedule-state.ts
+    │                   ├── agent.ts
+    │                   ├── example.ts
+    │                   ├── index.ts
+    │                   ├── models.ts
+    │                   └── prefix-logger.ts
+    └── .github/
+        └── workflows/
+            └── x-publish.yml
+
+================================================
+FILE: build-electron.sh
+================================================
+#!/bin/bash
+set -e
+
+# build rowboatx next.js app
+(cd apps/rowboatx && \
+    npm install && \
+    npm run build)
+
+# build rowboat server
+(cd apps/cli && \
+    npm install && \
+    npm run build)
+
+
+================================================
+FILE: Dockerfile.qdrant
+================================================
+FROM qdrant/qdrant:latest
+
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/* 
+
+
+================================================
+FILE: start.sh
+================================================
+#!/bin/bash
+
+# ensure data dirs exist
+mkdir -p data/uploads
+mkdir -p data/qdrant
+mkdir -p data/mongo
+
+# set the following environment variables
+export USE_RAG=true
+export USE_RAG_UPLOADS=true
+
+# enable composio tools if API key is set
+if [ -n "$COMPOSIO_API_KEY" ]; then
+  export USE_COMPOSIO_TOOLS=true
+fi
+
+# always show klavis tools, even if API key is not set
+export USE_KLAVIS_TOOLS=true
+
+# # enable klavis tools if API key is set
+# if [ -n "$KLAVIS_API_KEY" ]; then
+#   export USE_KLAVIS_TOOLS=true
+# fi
+
+# Start with the base command and profile flags
+CMD="docker compose"
+CMD="$CMD --profile setup_qdrant"
+CMD="$CMD --profile qdrant"
+CMD="$CMD --profile rag-worker"
+
+# Add more mappings as needed
+# if [ "$SOME_OTHER_ENV" = "true" ]; then
+#   CMD="$CMD --profile some_other_profile"
+# fi
+
+# Add the up and build flags at the end
+CMD="$CMD up --build"
+
+echo "Running: $CMD"
+exec $CMD
+
+
+
+================================================
+FILE: apps/cli/todo.md
+================================================
+runtime
+---
+o stream out responses
+o terminal logging
+o file logging
+- accept initial user input from CLI
+- mcp tool calls (http + stdio)
+- human input support
+- bash tool support
+- cli wrapper (node commander)
+
+
+rowboat agent
+---
+- create agent
+
+
+================================================
+FILE: apps/cli/tsconfig.json
+================================================
+{
+  // Visit https://aka.ms/tsconfig to read more about this file
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "module": "nodenext",
+    "target": "esnext",
+    "lib": ["esnext"],
+    "types": ["node"],
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "jsx": "react-jsx",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    }
+  }
+}
+
+
+
+================================================
+FILE: apps/cli/src/agents/agents.ts
+================================================
+import { z } from "zod";
+
+export const BaseTool = z.object({
+    name: z.string(),
+});
+
+export const BuiltinTool = BaseTool.extend({
+    type: z.literal("builtin"),
+});
+
+export const McpTool = BaseTool.extend({
+    type: z.literal("mcp"),
+    description: z.string(),
+    inputSchema: z.any(),
+    mcpServerName: z.string(),
+});
+
+export const AgentAsATool = BaseTool.extend({
+    type: z.literal("agent"),
+});
+
+export const ToolAttachment = z.discriminatedUnion("type", [
+    BuiltinTool,
+    McpTool,
+    AgentAsATool,
+]);
+
+export const Agent = z.object({
+    name: z.string(),
+    provider: z.string().optional(),
+    model: z.string().optional(),
+    description: z.string().optional(),
+    instructions: z.string(),
+    tools: z.record(z.string(), ToolAttachment).optional(),
+});
+
+
+
+================================================
+FILE: apps/cli/src/application/assistant/agent.ts
+================================================
+import { Agent, ToolAttachment } from "../../agents/agents.js";
+import z from "zod";
+import { CopilotInstructions } from "./instructions.js";
+import { BuiltinTools } from "../lib/builtin-tools.js";
+
+const tools: Record<string, z.infer<typeof ToolAttachment>> = {};
+for (const [name, tool] of Object.entries(BuiltinTools)) {
+    tools[name] = {
+        type: "builtin",
+        name,
+    };
+}
+
+export const CopilotAgent: z.infer<typeof Agent> = {
+    name: "rowboatx",
+    description: "Rowboatx copilot",
+    instructions: CopilotInstructions,
+    tools,
+}
+
+
+================================================
+FILE: apps/cli/src/application/lib/exec-tool.ts
+================================================
+import { ToolAttachment } from "../../agents/agents.js";
+import { z } from "zod";
+import { BuiltinTools } from "./builtin-tools.js";
+import { executeTool } from "../../mcp/mcp.js";
+
+async function execMcpTool(agentTool: z.infer<typeof ToolAttachment> & { type: "mcp" }, input: any): Promise<any> {
+    const result = await executeTool(agentTool.mcpServerName, agentTool.name, input);
+    return result;
+}
+
+export async function execTool(agentTool: z.infer<typeof ToolAttachment>, input: any): Promise<any> {
+    switch (agentTool.type) {
+        case "mcp":
+            return execMcpTool(agentTool, input);
+        case "builtin":
+            const builtinTool = BuiltinTools[agentTool.name];
+            if (!builtinTool || !builtinTool.execute) {
+                throw new Error(`Unsupported builtin tool: ${agentTool.name}`);
+            }
+            return builtinTool.execute(input);
+    }
+}
+
+
+================================================
+FILE: apps/cli/src/application/lib/random-id.ts
+================================================
+import { customAlphabet } from 'nanoid';
+const alphabet = '0123456789abcdefghijklmnopqrstuvwxyz-';
+const nanoid = customAlphabet(alphabet, 7);
+
+export async function randomId(): Promise<string> {
+    return nanoid();
+}
+
+
+================================================
+FILE: apps/cli/src/config/config.ts
+================================================
+import path from "path";
+import fs from "fs";
+import { homedir } from "os";
+
+// Resolve app root relative to compiled file location (dist/...)
+export const WorkDir = path.join(homedir(), ".rowboat");
+
+function ensureDirs() {
+    const ensure = (p: string) => { if (!fs.existsSync(p)) fs.mkdirSync(p, { recursive: true }); };
+    ensure(WorkDir);
+    ensure(path.join(WorkDir, "agents"));
+    ensure(path.join(WorkDir, "config"));
+}
+
+ensureDirs();
+
+
+================================================
+FILE: apps/cli/src/entities/example.ts
+================================================
+import z from "zod"
+import { Agent } from "../agents/agents.js"
+import { McpServerDefinition } from "../mcp/schema.js";
+
+export const Example = z.object({
+    id: z.string(),
+    instructions: z.string().optional(),
+    description: z.string().optional(),
+    entryAgent: z.string().optional(),
+    agents: z.array(Agent).optional(),
+    mcpServers: z.record(z.string(), McpServerDefinition).optional(),
+});
+
+
+
+================================================
+FILE: apps/cli/src/examples/index.ts
+================================================
+import twitterPodcast from './twitter-podcast.json' with { type: 'json' };
+import { Example } from '../entities/example.js';
+import z from 'zod';
+
+export const examples: Record<string, z.infer<typeof Example>> = {
+    "twitter-podcast": Example.parse(twitterPodcast),
+};
+
+
+================================================
+FILE: apps/cli/src/runs/lock.ts
+================================================
+export interface IRunsLock {
+    lock(runId: string): Promise<boolean>;
+    release(runId: string): Promise<void>;
+}
+
+export class InMemoryRunsLock implements IRunsLock {
+    private locks: Record<string, boolean> = {};
+
+    async lock(runId: string): Promise<boolean> {
+        if (this.locks[runId]) {
+            return false;
+        }
+        this.locks[runId] = true;
+        return true;
+    }
+
+    async release(runId: string): Promise<void> {
+        delete this.locks[runId];
+    }
+}
+
+
+
+================================================
+FILE: apps/cli/src/scripts/migrate-agents.ts
+================================================
+import { Agent } from "../agents/agents.js";
+import { IAgentsRepo } from "../agents/repo.js";
+import { WorkDir } from "../config/config.js";
+import container from "../di/container.js";
+import { glob, readFile } from "node:fs/promises";
+import path from "path";
+
+const main = async () => {
+    const agentsRepo = container.resolve<IAgentsRepo>("agentsRepo");
+    const matches = await Array.fromAsync(glob("**/*.json", { cwd: path.join(WorkDir, "agents") }));
+    for (const file of matches) {
+        try {
+            const agent = Agent.parse(JSON.parse(await readFile(path.join(WorkDir, "agents", file), "utf8")));
+            await agentsRepo.create(agent);
+            console.error(`migrated agent ${file}`);
+        } catch (error) {
+            console.error(`Error parsing agent ${file}: ${error instanceof Error ? error.message : String(error)}`);
+            continue;
+        }
+    }
+}
+
+main();
+
+
+================================================
+FILE: apps/cli/src/shared/prefix-logger.ts
+================================================
+// create a PrefixLogger class that wraps console.log with a prefix
+// and allows chaining with a parent logger
+export class PrefixLogger {
+    private prefix: string;
+    private parent: PrefixLogger | null;
+
+    constructor(prefix: string, parent: PrefixLogger | null = null) {
+        this.prefix = prefix;
+        this.parent = parent;
+    }
+
+    log(...args: any[]) {
+        const timestamp = new Date().toISOString();
+        const prefix = '[' + this.prefix + ']';
+
+        if (this.parent) {
+            this.parent.log(prefix, ...args);
+        } else {
+            console.log(timestamp, prefix, ...args);
+        }
+    }
+
+    child(childPrefix: string): PrefixLogger {
+        return new PrefixLogger(childPrefix, this);
+    }
+}
+
+
+================================================
+FILE: apps/cli/src/tui/index.tsx
+================================================
+import React from "react";
+import { render } from "ink";
+import { RowboatTui } from "./ui.js";
+
+export function runTui({ serverUrl }: { serverUrl?: string }) {
+    const baseUrl = serverUrl ?? process.env.ROWBOATX_SERVER_URL ?? "http://127.0.0.1:3000";
+    render(<RowboatTui serverUrl={baseUrl} />);
+}
+
+
+
+================================================
+FILE: apps/docs/docs/development/roadmap.mdx
+================================================
+---
+icon: "road"
+---
+
+# Roadmap
+
+Explore the future development plans and upcoming features for Rowboat. 
+
+
+================================================
+FILE: apps/experimental/chat_widget/next.config.mjs
+================================================
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+    output: 'standalone',
+};
+
+export default nextConfig;
+
+
+
+================================================
+FILE: apps/experimental/chat_widget/package.json
+================================================
+{
+  "name": "chat-widget",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@nextui-org/react": "^2.4.8",
+    "framer-motion": "^11.11.11",
+    "next": "^14.2.25",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-markdown": "^9.0.1",
+    "remark-gfm": "^4.0.0",
+    "rowboat-shared": "github:rowboatlabs/shared",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "eslint": "^8",
+    "eslint-config-next": "15.0.2",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
+  }
+}
+
+
+
+================================================
+FILE: apps/experimental/chat_widget/postcss.config.mjs
+================================================
+/** @type {import('postcss-load-config').Config} */
+const config = {
+  plugins: {
+    tailwindcss: {},
+  },
+};
+
+export default config;
+
+
+
+================================================
+FILE: apps/experimental/chat_widget/tailwind.config.ts
+================================================
+import { nextui } from "@nextui-org/react";
+import type { Config } from "tailwindcss";
+
+const config: Config = {
+  content: [
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [nextui()],
+};
+export default config;
+
+
+
+================================================
+FILE: apps/experimental/chat_widget/tsconfig.json
+================================================
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": ["./*"]
+    }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
+}
+
+
+
+================================================
+FILE: apps/experimental/chat_widget/.dockerignore
+================================================
+Dockerfile
+.dockerignore
+node_modules
+npm-debug.log
+README.md
+.next
+.git
+.env*
+
+
+================================================
+FILE: apps/experimental/chat_widget/.eslintrc.json
+================================================
+{
+  "extends": ["next/core-web-vitals", "next/typescript"]
+}
+
+
+
+================================================
+FILE: apps/experimental/chat_widget/app/globals.css
+================================================
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+
+================================================
+FILE: apps/experimental/chat_widget/app/layout.tsx
+================================================
+import type { Metadata } from "next";
+import localFont from "next/font/local";
+import "./globals.css";
+
+const geistSans = localFont({
+  src: "./fonts/GeistVF.woff",
+  variable: "--font-geist-sans",
+  weight: "100 900",
+});
+const geistMono = localFont({
+  src: "./fonts/GeistMonoVF.woff",
+  variable: "--font-geist-mono",
+  weight: "100 900",
+});
+
+export const metadata: Metadata = {
+  title: "RowBoat Chat",
+  description: "RowBoat Chat",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en" className="h-full bg-transparent">
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased h-full`}
+      >
+        {children}
+      </body>
+    </html>
+  );
+}
+
+
+
+================================================
+FILE: apps/experimental/chat_widget/app/page.tsx
+================================================
+import { Suspense } from 'react';
+import { App } from './app';
+
+export const dynamic = 'force-dynamic';
+
+export default function Page() {
+  return <Suspense>
+    <App apiUrl={`${process.env.ROWBOAT_HOST}/api/widget/v1`} />
+  </Suspense>
+}
+
+
+
+================================================
+FILE: apps/experimental/chat_widget/app/providers.tsx
+================================================
+import * as React from "react";
+
+// 1. import `NextUIProvider` component
+import {NextUIProvider} from "@nextui-org/react";
+
+export default function Providers({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <NextUIProvider>
+      {children}
+    </NextUIProvider>
+  );
+}
+
+
+================================================
+FILE: apps/experimental/chat_widget/app/api/bootstrap.js/route.ts
+================================================
+export const dynamic = 'force-dynamic'
+
+// Fetch template once when module loads
+const templatePromise = fetch(process.env.CHAT_WIDGET_HOST + '/bootstrap.template.js')
+  .then(res => res.text());
+
+export async function GET() {
+  try {
+    // Reuse the cached content
+    const template = await templatePromise;
+    
+    // Replace placeholder values with actual URLs
+    const contents = template
+      .replace('__CHAT_WIDGET_HOST__', process.env.CHAT_WIDGET_HOST || '')
+      .replace('__ROWBOAT_HOST__', process.env.ROWBOAT_HOST || '');
+    
+    return new Response(contents, {
+      headers: {
+        'Content-Type': 'application/javascript',
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+      },
+    });
+  } catch (error) {
+    console.error('Error serving bootstrap.js:', error);
+    return new Response('Error loading script', { status: 500 });
+  }
+}
+
+
+
+================================================
+FILE: apps/experimental/simulation_runner/__init__.py
+================================================
+[Empty file]
+
+
+================================================
+FILE: apps/experimental/simulation_runner/Dockerfile
+================================================
+# Use official Python runtime as base image
+FROM python:3.11-slim
+
+# Set working directory in container
+WORKDIR /app
+
+# Copy requirements file
+COPY requirements.txt .
+
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy project files
+COPY . .
+
+# Expose port if your app needs it (adjust as needed)
+ENV PYTHONUNBUFFERED=1
+
+# Command to run the simulation service
+CMD ["python", "service.py"]
+
+
+
+================================================
+FILE: apps/experimental/simulation_runner/requirements.txt
+================================================
+annotated-types==0.7.0
+anyio==4.8.0
+certifi==2025.1.31
+charset-normalizer==3.4.1
+distro==1.9.0
+dnspython==2.7.0
+h11==0.14.0
+httpcore==1.0.7
+httpx==0.28.1
+idna==3.10
+iniconfig==2.0.0
+jiter==0.8.2
+motor==3.7.0
+openai==1.63.0
+packaging==24.2
+pluggy==1.5.0
+pydantic==2.10.6
+pydantic_core==2.27.2
+pymongo==4.11.1
+pytest==8.3.4
+pytest-asyncio==0.25.3
+python-dateutil==2.9.0.post0
+requests==2.32.3
+rowboat==2.1.0
+six==1.17.0
+sniffio==1.3.1
+tqdm==4.67.1
+typing_extensions==4.12.2
+urllib3==2.3.0
+
+
+
+================================================
+FILE: apps/experimental/tools_webhook/__init__.py
+================================================
+[Empty file]
+
+
+================================================
+FILE: apps/experimental/tools_webhook/Dockerfile
+================================================
+# Use official Python runtime as base image
+FROM python:3.11-slim
+
+# Set working directory in container
+WORKDIR /app
+
+# Copy requirements file
+COPY requirements.txt .
+
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy project files
+COPY . .
+
+# Expose port if your app needs it (adjust as needed)
+ENV FLASK_APP=app
+ENV PYTHONUNBUFFERED=1
+
+# Command to run Flask development server
+CMD ["flask", "run", "--host=0.0.0.0", "--port=3005"]
+
+
+
+================================================
+FILE: apps/experimental/tools_webhook/function_map.py
+================================================
+
+"""
+function_map.py
+
+Defines all the callable functions and a mapping from
+string names to these functions.
+"""
+
+def greet(name: str, message: str):
+    """Return a greeting string."""
+    return f"{message}, {name}!"
+
+def add(a: int, b: int):
+    """Return the sum of two integers."""
+    return a + b
+
+def get_account_balance(user_id: str):
+    """Return a mock account balance for the given user_id."""
+    return f"User {user_id} has a balance of $123.45."
+
+# A configurable mapping from function identifiers to actual Python functions
+FUNCTIONS_MAP = {
+    "greet": greet,
+    "add": add,
+    "get_account_balance": get_account_balance
+}
+
+
+
+================================================
+FILE: apps/experimental/tools_webhook/requirements.txt
+================================================
+blinker==1.9.0
+click==8.1.8
+Flask==3.1.0
+iniconfig==2.0.0
+itsdangerous==2.2.0
+Jinja2==3.1.5
+MarkupSafe==3.0.2
+packaging==24.2
+pluggy==1.5.0
+PyJWT==2.10.1
+pytest==8.3.4
+Werkzeug==3.1.3
+
+
+
+================================================
+FILE: apps/experimental/tools_webhook/tests/__init__.py
+================================================
+[Empty file]
+
+
+================================================
+FILE: apps/python-sdk/pyproject.toml
+================================================
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "rowboat"
+version = "5.0.1"
+authors = [
+    { name = "Ramnique Singh", email = "ramnique@rowboatlabs.com" },
+]
+description = "Python sdk for the Rowboat API"
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "requests>=2.25.0",
+    "pydantic>=2.0.0",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/rowboatlabs/rowboat/tree/main/apps/python-sdk"
+"Bug Tracker" = "https://github.com/rowboatlabs/rowboat/issues" 
+
+
+================================================
+FILE: apps/python-sdk/requirements.txt
+================================================
+annotated-types==0.7.0
+certifi==2024.12.14
+charset-normalizer==3.4.1
+idna==3.10
+pydantic==2.10.5
+pydantic_core==2.27.2
+requests==2.32.3
+typing_extensions==4.12.2
+urllib3==2.3.0
+
+
+
+================================================
+FILE: apps/python-sdk/src/rowboat/__init__.py
+================================================
+from .client import Client
+from .schema import (
+    ApiMessage,
+    UserMessage,
+    SystemMessage,
+    AssistantMessage,
+    AssistantMessageWithToolCalls,
+    ToolMessage,
+    ApiRequest,
+    ApiResponse
+)
+
+
+================================================
+FILE: apps/rowboat/components.json
+================================================
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "new-york",
+  "rsc": true,
+  "tsx": true,
+  "tailwind": {
+    "config": "tailwind.config.ts",
+    "css": "app/globals.css",
+    "baseColor": "neutral",
+    "cssVariables": true,
+    "prefix": ""
+  },
+  "aliases": {
+    "components": "@/components",
+    "utils": "@/lib/utils",
+    "ui": "@/components/ui",
+    "lib": "@/lib",
+    "hooks": "@/hooks"
+  },
+  "iconLibrary": "lucide"
+}
+
+
+================================================
+FILE: apps/rowboat/instrumentation-client.ts
+================================================
+// instrumentation-client.js
+import posthog from 'posthog-js';
+
+posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY!, {
+    api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST,
+    defaults: '2025-05-24'
+});
+
+
+================================================
+FILE: apps/rowboat/next.config.mjs
+================================================
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+    output: 'standalone',
+    serverExternalPackages: [
+        'awilix',
+    ],
+};
+
+export default nextConfig;
+
+
+
+================================================
+FILE: apps/rowboat/postcss.config.mjs
+================================================
+/** @type {import('tailwindcss').Config} */
+export default {
+  plugins: {
+    '@tailwindcss/postcss': {},
+  },
+}
+
+
+================================================
+FILE: apps/rowboat/tsconfig.json
+================================================
+{
+  "compilerOptions": {
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": [
+        "./*"
+      ]
+    },
+    "target": "ES2017"
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
+
+
+
+================================================
+FILE: apps/rowboat/.dockerignore
+================================================
+Dockerfile
+.dockerignore
+node_modules
+npm-debug.log
+README.md
+.next
+.git
+.env*
+
+
+================================================
+FILE: apps/rowboat/.eslintrc.json
+================================================
+{
+  "extends": "next/core-web-vitals"
+}
+
+
+
+================================================
+FILE: apps/rowboat/app/browserconfig.xml
+================================================
+<?xml version="1.0" encoding="utf-8"?>
+<browserconfig>
+    <msapplication>
+        <tile>
+            <square150x150logo src="/mstile-150x150.png"/>
+            <TileColor>#da532c</TileColor>
+        </tile>
+    </msapplication>
+</browserconfig>
+
+
+
+================================================
+FILE: apps/rowboat/app/hero.ts
+================================================
+// hero.ts
+import { heroui } from "@heroui/react";
+export default heroui();
+
+
+================================================
+FILE: apps/rowboat/app/layout.tsx
+================================================
+import "./globals.css";
+import { ThemeProvider } from "./providers/theme-provider";
+import { Inter } from "next/font/google";
+import { Providers } from "./providers";
+import { Metadata } from "next";
+import { HelpModalProvider } from "./providers/help-modal-provider";
+import { Auth0Provider } from "@auth0/nextjs-auth0";
+
+const inter = Inter({ subsets: ["latin"] });
+
+export const metadata: Metadata = {
+  title: {
+    default: "RowBoat labs",
+    template: "%s | RowBoat Labs",
+  }
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return <html lang="en" className="h-dvh">
+    <Auth0Provider>
+      <ThemeProvider>
+        <body className={`${inter.className} h-full text-base [scrollbar-width:thin] bg-background`}>
+          <Providers className='h-full flex flex-col'>
+            <HelpModalProvider>
+              {children}
+            </HelpModalProvider>
+          </Providers>
+        </body>
+      </ThemeProvider>
+    </Auth0Provider>
+  </html>;
+}
+
+
+
+================================================
+FILE: apps/rowboat/app/loading.tsx
+================================================
+'use client';
+import { Spinner } from "@heroui/react";
+
+export default function Loading() {
+  // Stack uses React Suspense, which will render this page while user data is being fetched.
+  // See: https://nextjs.org/docs/app/api-reference/file-conventions/loading
+  return <Spinner size="sm" />;
+}
+
+
+
+================================================
+FILE: apps/rowboat/app/new-chat-link.tsx
+================================================
+import Link from "next/link";
+
+export function NewChatLink({demo}: {demo: string}) { 
+    return <Link
+        className="mt-2 text-black flex rounded-lg border border-gray-400 px-4 py-2 disabled:text-gray-400"
+        href={`/new/${demo}`}
+    >
+        Start new chat &rarr;
+    </Link>
+}
+
+
+================================================
+FILE: apps/rowboat/app/page.tsx
+================================================
+import { App } from "./app";
+import { redirect } from "next/navigation";
+import { USE_AUTH } from "./lib/feature_flags";
+
+export const dynamic = 'force-dynamic';
+
+export default function Home() {
+    if (!USE_AUTH) {
+        redirect("/projects");
+    }
+    return <App />
+}
+
+
+================================================
+FILE: apps/rowboat/app/providers.tsx
+================================================
+// app/providers.tsx
+'use client'
+
+import { HeroUIProvider } from "@heroui/react"
+import { useRouter } from 'next/navigation'
+
+export function Providers({ className, children }: { className: string, children: React.ReactNode }) {
+  const router = useRouter();
+
+  return (
+    <HeroUIProvider className={className} navigate={router.push}>
+      {children}
+    </HeroUIProvider >
+  )
+}
+
+
+================================================
+FILE: apps/rowboat/app/site.webmanifest
+================================================
+{"name":"","short_name":"","icons":[{"src":"/android-chrome-192x192.png","sizes":"192x192","type":"image/png"},{"src":"/android-chrome-512x512.png","sizes":"512x512","type":"image/png"}],"theme_color":"#ffffff","background_color":"#ffffff","display":"standalone"}
+
+
+================================================
+FILE: apps/rowboat/app/api/me/route.ts
+================================================
+import { NextRequest, NextResponse } from 'next/server';
+import { authCheck } from '@/app/actions/auth.actions';
+import { USE_AUTH } from '@/app/lib/feature_flags';
+
+export async function GET(_req: NextRequest) {
+    try {
+        let user;
+        if (USE_AUTH) {
+            user = await authCheck();
+        } else {
+            user = { id: 'guest_user' } as any;
+        }
+        return NextResponse.json({ id: user.id });
+    } catch (error) {
+        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+}
+
+
+
+
+
+================================================
+FILE: apps/rowboat/app/api/tmp-images/[id]/route.ts
+================================================
+import { NextRequest, NextResponse } from 'next/server';
+import { tempBinaryCache } from '@/src/application/services/temp-binary-cache';
+
+export async function GET(request: NextRequest, props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
+  const id = params.id;
+  if (!id) {
+    return NextResponse.json({ error: 'Missing id' }, { status: 400 });
+  }
+
+  // Serve from in-memory temp cache
+  const entry = tempBinaryCache.get(id);
+  if (!entry) {
+    return NextResponse.json({ error: 'Not found or expired' }, { status: 404 });
+  }
+
+  return new NextResponse(entry.buf, {
+    status: 200,
+    headers: {
+      'Content-Type': entry.mimeType || 'application/octet-stream',
+      'Cache-Control': 'no-store',
+      'Content-Disposition': `inline; filename="${id}"`,
+    },
+  });
+}
+
+
+
+================================================
+FILE: apps/rowboat/app/api/twilio/utils.ts
+================================================
+import TwiML from "twilio/lib/twiml/TwiML";
+import VoiceResponse from "twilio/lib/twiml/VoiceResponse";
+import { z } from "zod";
+
+export function XmlResponse(content: TwiML) {
+    return new Response(content.toString(), {
+        headers: {
+            "Content-Type": "text/xml",
+        },
+    });
+}
+
+export function reject(reason: VoiceResponse.RejectAttributes['reason']) {
+    return XmlResponse(new VoiceResponse()
+        .reject({
+            reason,
+        })
+    );
+}
+
+export function hangup() {
+    return XmlResponse(new VoiceResponse()
+        .hangup()
+    );
+}
+
+export const ZStandardRequestParams = z.object({
+    To: z.string(),
+    Direction: z.literal('inbound'),
+    CallSid: z.string(),
+    From: z.string(),
+});
+
+
+================================================
+FILE: apps/rowboat/app/billing/layout.tsx
+================================================
+import AppLayout from '../projects/layout/components/app-layout';
+
+export default function Layout({
+    children,
+}: Readonly<{
+    children: React.ReactNode;
+}>) {
+    return (
+        <AppLayout useAuth={true} useBilling={true}>
+            {children}
+        </AppLayout>
+    );
+}
+
+
+================================================
+FILE: apps/rowboat/app/billing/page.tsx
+================================================
+import { requireBillingCustomer } from '../lib/billing';
+import { BillingPage } from './app';
+import { getUsage } from '../lib/billing';
+import { redirect } from 'next/navigation';
+import { USE_BILLING } from '../lib/feature_flags';
+
+export const dynamic = 'force-dynamic';
+
+export default async function Page() {
+    if (!USE_BILLING) {
+        redirect('/projects');
+    }
+
+    const customer = await requireBillingCustomer();
+    const usage = await getUsage(customer.id);
+    return <BillingPage customer={customer} usage={usage} />;
+}
+
+
+================================================
+FILE: apps/rowboat/app/billing/callback/page.tsx
+================================================
+import { syncWithStripe } from "@/app/lib/billing";
+import { requireBillingCustomer } from '@/app/lib/billing';
+import { redirect } from "next/navigation";
+
+export const dynamic = 'force-dynamic';
+
+export default async function Page(
+    props: {
+        searchParams: Promise<{
+            redirect: string;
+        }>
+    }
+) {
+    const searchParams = await props.searchParams;
+    const customer = await requireBillingCustomer();
+    await syncWithStripe(customer.id);
+    const redirectUrl = searchParams.redirect as string;
+    redirect(redirectUrl || '/projects');
+}
+
+
+================================================
+FILE: apps/rowboat/app/lib/auth0.ts
+================================================
+// lib/auth0.js
+
+import { Auth0Client } from "@auth0/nextjs-auth0/server";
+
+// Initialize the Auth0 client 
+export const auth0 = new Auth0Client({
+  // Options are loaded from environment variables by default
+  // Ensure necessary environment variables are properly set
+  domain: process.env.AUTH0_ISSUER_BASE_URL,
+  clientId: process.env.AUTH0_CLIENT_ID,
+  clientSecret: process.env.AUTH0_CLIENT_SECRET,
+  appBaseUrl: process.env.AUTH0_BASE_URL,
+  secret: process.env.AUTH0_SECRET,
+
+  authorizationParameters: {
+    // In v4, the AUTH0_SCOPE and AUTH0_AUDIENCE environment variables for API authorized applications are no longer automatically picked up by the SDK.
+    // Instead, we need to provide the values explicitly.
+    scope: process.env.AUTH0_SCOPE,
+    audience: process.env.AUTH0_AUDIENCE,
+  }
+});
+
+
+================================================
+FILE: apps/rowboat/app/lib/embedding.ts
+================================================
+import { createOpenAI } from "@ai-sdk/openai";
+
+const EMBEDDING_PROVIDER_API_KEY = process.env.EMBEDDING_PROVIDER_API_KEY || process.env.OPENAI_API_KEY || '';
+const EMBEDDING_PROVIDER_BASE_URL = process.env.EMBEDDING_PROVIDER_BASE_URL || undefined;
+const EMBEDDING_MODEL = process.env.EMBEDDING_MODEL || 'text-embedding-3-small';
+
+const openai = createOpenAI({
+    apiKey: EMBEDDING_PROVIDER_API_KEY,
+    baseURL: EMBEDDING_PROVIDER_BASE_URL,
+});
+
+export const embeddingModel = openai.embedding(EMBEDDING_MODEL);
+
+
+================================================
+FILE: apps/rowboat/app/lib/loadenv.ts
+================================================
+import dotenv from 'dotenv'
+dotenv.config({path: [".env.local", ".env"]});
+
+
+================================================
+FILE: apps/rowboat/app/lib/project_templates.ts
+================================================
+import { WorkflowTemplate } from "./types/workflow_types";
+import { z } from 'zod';
+
+// Provide a minimal default template to satisfy legacy code paths that
+// still reference `templates.default`. Real templates are DB-backed.
+
+const defaultTemplate: z.infer<typeof WorkflowTemplate> = {
+    name: 'Blank Template',
+    description: 'A blank canvas to build your assistant.',
+    startAgent: "",
+    agents: [],
+    prompts: [],
+    tools: [],
+    pipelines: [],
+};
+
+export const templates: Record<string, z.infer<typeof WorkflowTemplate>> = {
+    default: defaultTemplate,
+};
+
+
+
+================================================
+FILE: apps/rowboat/app/lib/qdrant.ts
+================================================
+import {QdrantClient} from '@qdrant/js-client-rest';
+
+// TO connect to Qdrant running locally
+export const qdrantClient = new QdrantClient({
+    url: process.env.QDRANT_URL,
+    ...(process.env.QDRANT_API_KEY ? { apiKey: process.env.QDRANT_API_KEY } : {}),
+});
+
+
+================================================
+FILE: apps/rowboat/app/lib/redis.ts
+================================================
+import Redis from 'ioredis';
+
+export const redisClient = new Redis(process.env.REDIS_URL || '');
+
+
+
+================================================
+FILE: apps/rowboat/app/lib/uploads_s3_client.ts
+================================================
+import { S3Client } from "@aws-sdk/client-s3";
+
+export const uploadsS3Client = new S3Client({
+    region: process.env.RAG_UPLOADS_S3_REGION || process.env.AWS_REGION || 'us-east-1',
+    credentials: (process.env.AWS_ACCESS_KEY_ID && process.env.AWS_SECRET_ACCESS_KEY)
+        ? {
+            accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+            secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+        }
+        : undefined as any,
+});
+
+
+
+================================================
+FILE: apps/rowboat/app/lib/utils.ts
+================================================
+// create a PrefixLogger class that wraps console.log with a prefix
+// and allows chaining with a parent logger
+export class PrefixLogger {
+    private prefix: string;
+    private parent: PrefixLogger | null;
+
+    constructor(prefix: string, parent: PrefixLogger | null = null) {
+        this.prefix = prefix;
+        this.parent = parent;
+    }
+
+    log(...args: any[]) {
+        const timestamp = new Date().toISOString();
+        const prefix = '[' + this.prefix + ']';
+
+        if (this.parent) {
+            this.parent.log(prefix, ...args);
+        } else {
+            console.log(timestamp, prefix, ...args);
+        }
+    }
+
+    child(childPrefix: string): PrefixLogger {
+        return new PrefixLogger(childPrefix, this);
+    }
+}
+
+
+================================================
+FILE: apps/rowboat/app/lib/components/datasource-icon.tsx
+================================================
+import { FileIcon, FilesIcon, FileTextIcon, GlobeIcon } from "lucide-react";
+
+export function DataSourceIcon({
+    type = undefined,
+    size = "sm",
+}: {
+    type?: "crawl" | "urls" | "files" | "text" | undefined;
+    size?: "sm" | "md";
+}) {
+    const sizeClass = size === "sm" ? "w-4 h-4" : "w-6 h-6";
+    return <>
+        {type === undefined && <FileIcon className={sizeClass} />}
+        {type == "crawl" && <GlobeIcon className={sizeClass} />}
+        {type == "urls" && <GlobeIcon className={sizeClass} />}
+        {type == "files" && <FilesIcon className={sizeClass} />}
+        {type == "text" && <FileTextIcon className={sizeClass} />}
+    </>;
+}
+
+
+
+================================================
+FILE: apps/rowboat/app/lib/components/dropdown.tsx
+================================================
+import { Select, SelectItem, Button } from "@heroui/react";
+import { ReactNode } from "react";
+
+export interface DropdownOption {
+    key: string;
+    label: string;
+}
+
+interface DropdownProps {
+    options: DropdownOption[];
+    value?: string;
+    onChange: (value: string) => void;
+    className?: string;
+    placeholder?: string;
+}
+
+export function Dropdown({
+    options,
+    value,
+    onChange,
+    className = "w-60",
+    placeholder
+}: DropdownProps) {
+    return (
+        <Select
+            variant="bordered"
+            selectedKeys={value ? [value] : []}
+            size="sm"
+            className={className}
+            onSelectionChange={(keys) => onChange(keys.currentKey as string)}
+            placeholder={placeholder}
+        >
+            {options.map((option) => (
+                <SelectItem key={option.key}>
+                    {option.label}
+                </SelectItem>
+            ))}
+        </Select>
+    );
+}
+
+
+
+================================================
+FILE: apps/rowboat/app/lib/components/form-section.tsx
+================================================
+import { Divider } from "@heroui/react";
+import { Label } from "./label";
+
+export function FormSection({
+    label,
+    children,
+    showDivider = false,
+}: {
+    label?: string;
+    children: React.ReactNode;
+    showDivider?: boolean;
+}) {
+    return (
+        <>
+            <div className="flex flex-col gap-2">
+                {label && <Label label={label} />}
+                {children}
+            </div>
+            {showDivider && <Divider className="my-4" />}
+        </>
+    );
+} 
+
+
+================================================
+FILE: apps/rowboat/app/lib/components/form-status-button-old.tsx
+================================================
+'use client';
+
+import { useFormStatus } from "react-dom";
+import { Button, ButtonProps } from "@heroui/react";
+
+export function FormStatusButton({
+    props
+}: {
+    props: ButtonProps;
+}) {
+    const { pending } = useFormStatus();
+
+    return <Button {...props} isLoading={pending} />;
+}
+
+
+================================================
+FILE: apps/rowboat/app/lib/components/form-status-button.tsx
+================================================
+'use client';
+
+import { useFormStatus } from "react-dom";
+import { Button } from "@/components/ui/button";
+import { ButtonHTMLAttributes } from "react";
+
+export function FormStatusButton({
+    props
+}: {
+    props: ButtonHTMLAttributes<HTMLButtonElement> & {
+        startContent?: React.ReactNode;
+        endContent?: React.ReactNode;
+        variant?: 'primary' | 'secondary' | 'tertiary';
+        size?: 'sm' | 'md' | 'lg';
+        isLoading?: boolean;
+    };
+}) {
+    const { pending } = useFormStatus();
+
+    return <Button {...props} isLoading={pending} />;
+}
+
+
+================================================
+FILE: apps/rowboat/app/lib/components/label.tsx
+================================================
+export function Label({ label }: { label: string }) {
+    return <div className="text-xs font-medium text-gray-400 uppercase">{label}</div>;
+}
+
+
+================================================
+FILE: apps/rowboat/app/lib/components/menu-item.tsx
+================================================
+import React from 'react';
+import clsx from 'clsx';
+
+interface MenuItemProps {
+  icon: React.ReactNode;
+  children: React.ReactNode;
+  selected: boolean;
+  onClick: () => void;
+}
+
+const MenuItem: React.FC<MenuItemProps> = ({ icon, children, selected, onClick }) => {
+  return (
+    <button
+      className={clsx(
+        "w-full flex items-center gap-2 px-3 py-1.5 text-sm rounded-md transition-colors",
+        "hover:bg-gray-100 dark:hover:bg-gray-800",
+        {
+          "bg-gray-100 dark:bg-gray-800": selected,
+          "text-gray-600 dark:text-gray-400": !selected,
+          "text-gray-900 dark:text-gray-100": selected,
+        }
+      )}
+      onClick={onClick}
+    >
+      {icon}
+      {children}
+    </button>
+  );
+};
+
+export default MenuItem; 
+
+
+================================================
+FILE: apps/rowboat/app/lib/components/page-section.tsx
+================================================
+export function PageSection({
+    title,
+    children,
+    danger = false,
+}: {
+    title: string;
+    children: React.ReactNode;
+    danger?: boolean;
+}) {
+    return <div className="pb-2">
+        <div className={`text-lg pb-2 border-b border-b-gray-100` + (danger ? ' text-red-600 border-b-red-600' : '')}>
+            {title}
+        </div>
+        <div className="px-4 py-4">
+            {children}
+        </div>
+    </div>
+}
+
+
+================================================
+FILE: apps/rowboat/app/lib/components/pagination.tsx
+================================================
+'use client';
+
+import { Pagination as NextUiPagination } from "@heroui/react";
+import { usePathname, useRouter } from "next/navigation";
+
+export function Pagination({
+    total,
+    page,
+}: {
+    total: number;
+    page: number;
+}) {
+    const pathname = usePathname();
+    const router = useRouter();
+
+    return <NextUiPagination
+        showControls
+        total={total}
+        initialPage={page}
+        onChange={(page) => {
+            router.push(`${pathname}?page=${page}`);
+        }}
+    />;
+}
+
+
+================================================
+FILE: apps/rowboat/app/lib/types/api_types.ts
+================================================
+import { Message } from "./types";
+import { Turn } from "@/src/entities/models/turn";
+import { z } from "zod";
+
+export const ApiRequest = z.object({
+    messages: z.array(Message),
+    conversationId: z.string().nullable().optional(),
+    mockTools: z.record(z.string(), z.string()).nullable().optional(),
+    stream: z.boolean().optional().nullable().default(false),
+});export const ApiResponse = z.object({
+    turn: Turn,
+    conversationId: z.string().optional(),
+});
+
+
+
+
+================================================
+FILE: apps/rowboat/app/lib/types/datasource_types.ts
+================================================
+import { z } from "zod";
+
+export const EmbeddingRecord = z.object({
+    id: z.string().uuid(),
+    vector: z.array(z.number()),
+    payload: z.object({
+        projectId: z.string(),
+        sourceId: z.string(),
+        docId: z.string(),
+        content: z.string(),
+        title: z.string(),
+        name: z.string(),
+    }),
+});
+
+
+================================================
+FILE: apps/rowboat/app/lib/types/voice_types.ts
+================================================
+import { z } from 'zod';
+import { Message } from './types';
+
+export const TwilioConfigParams = z.object({
+    phone_number: z.string(),
+    account_sid: z.string(),
+    auth_token: z.string(),
+    label: z.string(),
+    project_id: z.string(),
+});
+
+export const TwilioConfig = TwilioConfigParams.extend({
+    createdAt: z.date(),
+    status: z.enum(['active', 'deleted']),
+});
+
+export interface TwilioConfigResponse {
+    success: boolean;
+    error?: string;
+}
+
+export interface InboundConfigResponse {
+    status: 'configured' | 'reconfigured';
+    phone_number: string;
+    previous_webhook?: string;
+    error?: string;
+}
+
+export const TwilioInboundCall = z.object({
+    callSid: z.string(),
+    to: z.string(),
+    from: z.string(),
+    projectId: z.string(),
+    messages: z.array(Message),
+    createdAt: z.string().datetime(),
+    lastUpdatedAt: z.string().datetime().optional(),
+})
+
+
+================================================
+FILE: apps/rowboat/app/onboarding/layout.tsx
+================================================
+import AppLayout from '../projects/layout/components/app-layout';
+
+export default function Layout({
+    children,
+}: Readonly<{
+    children: React.ReactNode;
+}>) {
+    return (
+        <AppLayout useAuth={true} useBilling={true}>
+            {children}
+        </AppLayout>
+    );
+}
+
+
+================================================
+FILE: apps/rowboat/app/onboarding/page.tsx
+================================================
+import { redirect } from "next/navigation";
+import App from "./app";
+import { requireAuth } from "../lib/auth";
+import { USE_AUTH } from "../lib/feature_flags";
+
+export const dynamic = 'force-dynamic';
+
+export default async function Page() {
+    if (!USE_AUTH) {
+        redirect('/projects');
+    }
+    await requireAuth();
+    return <App />;
+}
+
+
+================================================
+FILE: apps/rowboat/app/projects/app.tsx
+================================================
+'use client';
+
+import { BuildAssistantSection } from "./components/build-assistant-section";
+
+
+export default function App() {
+    return (
+        <div className="min-h-screen bg-white dark:bg-gray-900">
+            <BuildAssistantSection />
+        </div>
+    );
+}
+
+
+================================================
+FILE: apps/rowboat/app/projects/layout.tsx
+================================================
+import { USE_AUTH, USE_BILLING } from "../lib/feature_flags";
+import AppLayout from './layout/components/app-layout';
+
+export const dynamic = 'force-dynamic';
+
+export default function Layout({
+    children,
+}: Readonly<{
+    children: React.ReactNode;
+}>) {
+    return (
+        <AppLayout useAuth={USE_AUTH} useBilling={USE_BILLING}>
+            {children}
+        </AppLayout>
+    );
+}
+
+
+================================================
+FILE: apps/rowboat/app/projects/page.tsx
+================================================
+import App from "./app";
+import { requireActiveBillingSubscription } from '@/app/lib/billing';
+
+export default async function Page() {
+    await requireActiveBillingSubscription();
+    return <App />
+}
+
+
+
+================================================
+FILE: apps/rowboat/app/projects/[projectId]/layout.tsx
+================================================
+export default async function Layout({
+    params,
+    children
+}: {
+    params: Promise<{ projectId: string }>
+    children: React.ReactNode
+}) {
+    return children;
+}
+
+
+================================================
+FILE: apps/rowboat/app/projects/[projectId]/page.tsx
+================================================
+import { redirect } from "next/navigation";
+import { requireActiveBillingSubscription } from '@/app/lib/billing';
+
+export default async function Page(
+    props: {
+        params: Promise<{ projectId: string }>
+    }
+) {
+    const params = await props.params;
+    await requireActiveBillingSubscription();
+    redirect(`/projects/${params.projectId}/workflow`);
+}
+
+
+================================================
+FILE: apps/rowboat/app/projects/[projectId]/config/page.tsx
+================================================
+import { Metadata } from "next";
+import { SimpleConfigApp } from "./app";
+import { requireActiveBillingSubscription } from '@/app/lib/billing';
+
+export const metadata: Metadata = {
+    title: "Project Settings",
+};
+
+export default async function Page(
+    props: {
+        params: Promise<{
+            projectId: string;
+        }>;
+    }
+) {
+    const params = await props.params;
+    await requireActiveBillingSubscription();
+    return <SimpleConfigApp
+        projectId={params.projectId}
+    />;
+}
+
+
+================================================
+FILE: apps/rowboat/app/projects/[projectId]/config/components/shared-styles.ts
+================================================
+export const sectionHeaderStyles = "block text-sm font-semibold text-gray-900 dark:text-gray-100 mb-2";
+export const sectionDescriptionStyles = "text-sm text-gray-500 dark:text-gray-400 mb-4";
+export const textareaStyles = "rounded-lg p-3 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-750 focus:shadow-inner focus:ring-2 focus:ring-indigo-500/20 dark:focus:ring-indigo-400/20 placeholder:text-gray-400 dark:placeholder:text-gray-500";
+export const inputStyles = "rounded-lg px-3 py-2 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-750 focus:shadow-inner focus:ring-2 focus:ring-indigo-500/20 dark:focus:ring-indigo-400/20"; 
+
+
+================================================
+FILE: apps/rowboat/app/projects/[projectId]/conversations/page.tsx
+================================================
+import { Metadata } from "next";
+import { requireActiveBillingSubscription } from '@/app/lib/billing';
+import { ConversationsList } from "./components/conversations-list";
+
+export const metadata: Metadata = {
+    title: "Conversations",
+};
+
+export default async function Page(
+    props: {
+        params: Promise<{ projectId: string }>
+    }
+) {
+    const params = await props.params;
+    await requireActiveBillingSubscription();
+    return <ConversationsList projectId={params.projectId} />;
+}
+
+
+
+
+
+================================================
+FILE: apps/rowboat/app/projects/[projectId]/conversations/[conversationId]/page.tsx
+================================================
+import { Metadata } from "next";
+import { requireActiveBillingSubscription } from '@/app/lib/billing';
+import { ConversationView } from "../components/conversation-view";
+
+export const metadata: Metadata = {
+    title: "Conversation",
+};
+
+export default async function Page(
+    props: {
+        params: Promise<{ projectId: string, conversationId: string }>
+    }
+) {
+    const params = await props.params;
+    await requireActiveBillingSubscription();
+    return <ConversationView projectId={params.projectId} conversationId={params.conversationId} />;
+}
+
+
+
+
+
+================================================
+FILE: apps/rowboat/app/projects/[projectId]/copilot/example.md
+================================================
+This is a response in markdown from the copilot.
+
+This is some text.
+
+I'm adding a tool `get_status()` below:
+
+```copilot_change
+// action: create_new
+// config_type: tool
+// name: get_status
+{
+	"change_description": "added a new tool...",
+	"config_changes": {
+		// same as before
+	}
+}
+```
+
+I'm also updating the example agent:
+
+```copilot_change
+// action: edit
+// config_type: agent
+// name: Example agent
+{
+	"change_description": "updated the instructions...",
+	"config_changes": {
+		// same as before
+	}
+}
+```
+
+This concludes my changes. Would you like some more help?
+
+
+================================================
+FILE: apps/rowboat/app/projects/[projectId]/copilot/use-parsed-blocks.tsx
+================================================
+import { useMemo } from "react";
+
+type Block =
+  | { type: "text"; content: string }
+  | { type: "code"; content: string };
+
+const copilotCodeMarker = "copilot_change\n";
+
+function parseMarkdown(markdown: string): Block[] {
+  // Split on triple backticks but keep the delimiters
+  // This gives us the raw content between and including delimiters
+  const parts = markdown.split(/(?:\n|^)```/);
+  const blocks: Block[] = [];
+  
+  for (const part of parts) {
+    if (part.trim().startsWith(copilotCodeMarker)) {
+      blocks.push({ type: 'code', content: part.slice(copilotCodeMarker.length) });
+    } else {
+      blocks.push({ type: 'text', content: part });
+    }
+  }
+
+  return blocks;
+}
+
+export function useParsedBlocks(text: string): Block[] {
+  return useMemo(() => {
+    return parseMarkdown(text);
+  }, [text]);
+}
+
+
+================================================
+FILE: apps/rowboat/app/projects/[projectId]/jobs/page.tsx
+================================================
+import { Metadata } from "next";
+import { requireActiveBillingSubscription } from '@/app/lib/billing';
+import { JobsList } from "./components/jobs-list";
+
+export const metadata: Metadata = {
+    title: "Jobs",
+};
+
+export default async function Page(
+    props: {
+        params: Promise<{ projectId: string }>
+    }
+) {
+    const params = await props.params;
+    await requireActiveBillingSubscription();
+    return <JobsList projectId={params.projectId} />;
+}
+
+
+
+================================================
+FILE: apps/rowboat/app/projects/[projectId]/jobs/[jobId]/page.tsx
+================================================
+import { Metadata } from "next";
+import { requireActiveBillingSubscription } from '@/app/lib/billing';
+import { JobView } from "../components/job-view";
+
+export const metadata: Metadata = {
+    title: "Job",
+};
+
+export default async function Page(
+    props: {
+        params: Promise<{ projectId: string, jobId: string }>
+    }
+) {
+    const params = await props.params;
+    await requireActiveBillingSubscription();
+    return <JobView projectId={params.projectId} jobId={params.jobId} />;
+}
+
+
+
+================================================
+FILE: apps/rowboat/app/projects/[projectId]/manage-triggers/page.tsx
+================================================
+import { Metadata } from "next";
+import { requireActiveBillingSubscription } from '@/app/lib/billing';
+import { JobRulesTabs } from "./components/job-rules-tabs";
+
+export const metadata: Metadata = {
+    title: "Triggers",
+};
+
+export default async function Page(
+    props: {
+        params: Promise<{ projectId: string }>
+    }
+) {
+    const params = await props.params;
+    await requireActiveBillingSubscription();
+    return <JobRulesTabs projectId={params.projectId} />;
+}
+
+
+
+================================================
+FILE: apps/rowboat/app/projects/[projectId]/manage-triggers/recurring/[ruleId]/page.tsx
+================================================
+import { Metadata } from "next";
+import { requireActiveBillingSubscription } from '@/app/lib/billing';
+import { RecurringJobRuleView } from "../../components/recurring-job-rule-view";
+
+export const metadata: Metadata = {
+    title: "Recurring Job Rule",
+};
+
+export default async function Page(
+    props: {
+        params: Promise<{ projectId: string; ruleId: string }>
+    }
+) {
+    const params = await props.params;
+    await requireActiveBillingSubscription();
+    return <RecurringJobRuleView projectId={params.projectId} ruleId={params.ruleId} />;
+}
+
+
+
+================================================
+FILE: apps/rowboat/app/projects/[projectId]/manage-triggers/recurring/new/page.tsx
+================================================
+import { Metadata } from "next";
+import { requireActiveBillingSubscription } from '@/app/lib/billing';
+import { CreateRecurringJobRuleForm } from "../../components/create-recurring-job-rule-form";
+
+export const metadata: Metadata = {
+    title: "Create Recurring Job Rule",
+};
+
+export default async function Page(
+    props: {
+        params: Promise<{ projectId: string }>
+    }
+) {
+    const params = await props.params;
+    await requireActiveBillingSubscription();
+    return <CreateRecurringJobRuleForm projectId={params.projectId} />;
+}
+
+
+
+================================================
+FILE: apps/rowboat/app/projects/[projectId]/manage-triggers/scheduled/[ruleId]/page.tsx
+================================================
+import { Metadata } from "next";
+import { requireActiveBillingSubscription } from '@/app/lib/billing';
+import { ScheduledJobRuleView } from "../components/scheduled-job-rule-view";
+
+export const metadata: Metadata = {
+    title: "Scheduled Job Rule",
+};
+
+export default async function Page(
+    props: {
+        params: Promise<{ projectId: string; ruleId: string }>
+    }
+) {
+    const params = await props.params;
+    await requireActiveBillingSubscription();
+    return <ScheduledJobRuleView projectId={params.projectId} ruleId={params.ruleId} />;
+}
+
+
+
+================================================
+FILE: apps/rowboat/app/projects/[projectId]/manage-triggers/scheduled/new/page.tsx
+================================================
+import { Metadata } from "next";
+import { requireActiveBillingSubscription } from '@/app/lib/billing';
+import { CreateScheduledJobRuleForm } from "../components/create-scheduled-job-rule-form";
+
+export const metadata: Metadata = {
+    title: "Create Scheduled Job Rule",
+};
+
+export default async function Page(
+    props: {
+        params: Promise<{ projectId: string }>
+    }
+) {
+    const params = await props.params;
+    await requireActiveBillingSubscription();
+    return <CreateScheduledJobRuleForm projectId={params.projectId} />;
+}
+
+
+
+================================================
+FILE: apps/rowboat/app/projects/[projectId]/manage-triggers/triggers/[deploymentId]/page.tsx
+================================================
+import { Metadata } from "next";
+import { requireActiveBillingSubscription } from '@/app/lib/billing';
+import { ComposioTriggerDeploymentView } from "../../components/composio-trigger-deployment-view";
+
+export const metadata: Metadata = {
+    title: "External Trigger",
+};
+
+export default async function Page(
+    props: {
+        params: Promise<{ projectId: string; deploymentId: string }>
+    }
+) {
+    const params = await props.params;
+    await requireActiveBillingSubscription();
+    return <ComposioTriggerDeploymentView projectId={params.projectId} deploymentId={params.deploymentId} />;
+}
+
+
+
+
+
+================================================
+FILE: apps/rowboat/app/projects/[projectId]/playground/copilot-prompts.ts
+================================================
+export const FIX_WORKFLOW_PROMPT = `There is an issue with this turn of chat (index {index}): "{chat_turn}"
+
+Fix the issue by updating necessary agents and tools.`;
+
+export const FIX_WORKFLOW_PROMPT_WITH_FEEDBACK = `There is an issue with this turn of chat (index {index}): "{chat_turn}"
+
+Fix the issue by updating necessary agents and tools.
+
+Here are more details: "{feedback}"`;
+
+export const EXPLAIN_WORKFLOW_PROMPT_ASSISTANT = `Please explain why the assistant responded with the following message (index {index}):\n"{chat_turn}"`;
+
+export const EXPLAIN_WORKFLOW_PROMPT_TOOL = `Please explain why the following tool was called (index {index}):\n"{chat_turn}"`;
+
+export const EXPLAIN_WORKFLOW_PROMPT_TRANSITION = `Please explain why the following agent transition occurred (index {index}):\n"{chat_turn}"`;
+
+
+
+================================================
+FILE: apps/rowboat/app/projects/[projectId]/sources/page.tsx
+================================================
+import { Metadata } from "next";
+import { SourcesList } from "./components/sources-list";
+import { requireActiveBillingSubscription } from '@/app/lib/billing';
+
+export const metadata: Metadata = {
+    title: "Data sources",
+}
+
+export default async function Page(
+    props: {
+        params: Promise<{ projectId: string }>
+    }
+) {
+    const params = await props.params;
+    await requireActiveBillingSubscription();
+    return <SourcesList 
+        projectId={params.projectId} 
+    />;
+}
+
+
+================================================
+FILE: apps/rowboat/app/projects/[projectId]/sources/[sourceId]/page.tsx
+================================================
+import { SourcePage } from "./source-page";
+import { requireActiveBillingSubscription } from '@/app/lib/billing';
+
+export default async function Page(
+    props: {
+        params: Promise<{
+            projectId: string,
+            sourceId: string
+        }>
+    }
+) {
+    const params = await props.params;
+    await requireActiveBillingSubscription();
+    return <SourcePage projectId={params.projectId} sourceId={params.sourceId} />;
+}
+
+
+================================================
+FILE: apps/rowboat/app/projects/[projectId]/sources/components/delete.tsx
+================================================
+'use client';
+
+import { deleteDataSource } from "../../../../actions/data-source.actions";
+import { FormStatusButton } from "../../../../lib/components/form-status-button";
+
+export function DeleteSource({
+    sourceId,
+}: {
+    sourceId: string;
+}) {
+    function handleDelete() {
+        if (window.confirm('Are you sure you want to delete this data source?')) {
+            deleteDataSource(sourceId);
+        }
+    }
+
+    return <form action={handleDelete}>
+        <FormStatusButton
+            props={{
+                type: "submit",
+                children: "Delete data source",
+                className: "text-red-800",
+            }}
+        />
+    </form>;
+}
+
+
+================================================
+FILE: apps/rowboat/app/projects/[projectId]/sources/components/shared.tsx
+================================================
+export function UrlList({ urls }: { urls: string }) {
+    return <pre className="max-w-[450px] border p-1 border-gray-300 rounded overflow-auto min-h-7 max-h-52 text-nowrap">
+        {urls}
+    </pre>;
+}
+
+export function TableLabel({ children, className }: { children: React.ReactNode, className?: string }) {
+    return <th className={`font-medium text-gray-800 text-left align-top pr-4 py-4 ${className}`}>{children}</th>;
+}
+
+export function TableValue({ children, className }: { children: React.ReactNode, className?: string }) {
+    return <td className={`align-top py-4 ${className}`}>{children}</td>;
+}
+
+
+================================================
+FILE: apps/rowboat/app/projects/[projectId]/sources/components/web-recrawl.tsx
+================================================
+'use client';
+import { FormStatusButton } from "../../../../lib/components/form-status-button";
+import { RefreshCwIcon } from "lucide-react";
+
+export function Recrawl({
+    handleRefresh,
+}: {
+    handleRefresh: () => void;
+}) {
+    return <form action={handleRefresh}>
+        <FormStatusButton
+            props={{
+                type: "submit",
+                startContent: <RefreshCwIcon />,
+                children: "Refresh",
+            }}
+        />
+    </form>;
+}
+
+
+================================================
+FILE: apps/rowboat/app/projects/[projectId]/sources/new/page.tsx
+================================================
+import { Metadata } from "next";
+import { Form } from "./form";
+import { redirect } from "next/navigation";
+import { USE_RAG, USE_RAG_UPLOADS, USE_RAG_S3_UPLOADS, USE_RAG_SCRAPING } from "../../../../lib/feature_flags";
+import { requireActiveBillingSubscription } from '@/app/lib/billing';
+
+export const metadata: Metadata = {
+    title: "Add data source"
+}
+
+export default async function Page(
+    props: {
+        params: Promise<{ projectId: string }>
+    }
+) {
+    const params = await props.params;
+    await requireActiveBillingSubscription();
+    if (!USE_RAG) {
+        redirect(`/projects/${params.projectId}`);
+    }
+
+    return (
+        <Form
+            projectId={params.projectId}
+            useRagUploads={USE_RAG_UPLOADS}
+            useRagS3Uploads={USE_RAG_S3_UPLOADS}
+            useRagScraping={USE_RAG_SCRAPING}
+        />
+    );
+}
+
+
+================================================
+FILE: apps/rowboat/app/projects/[projectId]/tools/oauth/callback/page.tsx
+================================================
+'use client';
+
+import { useEffect } from 'react';
+
+export default function OAuthCallback() {
+  useEffect(() => {
+    // Simply close the window - parent will refresh server status
+    if (window.opener) {
+      window.close();
+    }
+  }, []);
+
+  return (
+    <div className="flex min-h-screen items-center justify-center">
+      <div className="text-center">
+        <h1 className="text-xl font-semibold mb-4">Completing Authentication</h1>
+        <p className="text-gray-600">Please wait while we complete the authentication process...</p>
+      </div>
+    </div>
+  );
+} 
+
+
+================================================
+FILE: apps/rowboat/app/projects/[projectId]/workflow/error.tsx
+================================================
+"use client";
+import { Alert } from "@heroui/react";
+
+export default function Error(props: { error: Error }) {
+    return <Alert
+        color="danger"
+        title="Error loading workflow"
+    >
+        There was an error loading the workflow: {props.error.message}
+    </Alert>;
+}
+
+
+================================================
+FILE: apps/rowboat/app/projects/[projectId]/workflow/loading.tsx
+================================================
+"use client";
+import { Spinner } from "@heroui/react";
+
+export default function Loading() {
+    return <div className="flex flex-col gap-4">
+        <Spinner size="sm" />
+    </div>;
+}
+
+
+================================================
+FILE: apps/rowboat/app/projects/[projectId]/workflow/pane.tsx
+================================================
+import { StructuredPanel, ActionButton } from "../../../lib/components/structured-panel";
+
+// Re-export both components for backward compatibility
+export const Pane = StructuredPanel;
+export { ActionButton };
+
+// TODO: Delete this file once all the files are updated to use StructuredPanel
+
+
+================================================
+FILE: apps/rowboat/app/projects/layout/index.tsx
+================================================
+import { USE_RAG } from "@/app/lib/feature_flags";
+import AppLayout from './components/app-layout';
+
+export default async function Layout({
+    params,
+    children
+}: {
+    params: { projectId: string }
+    children: React.ReactNode
+}) {
+    return (
+        <AppLayout>
+            {children}
+        </AppLayout>
+    );
+} 
+
+
+================================================
+FILE: apps/rowboat/app/projects/layout/components/menu-item.tsx
+================================================
+import { LucideIcon } from "lucide-react";
+
+interface MenuItemProps {
+    icon: LucideIcon;
+    selected?: boolean;
+    collapsed?: boolean;
+    children?: React.ReactNode;
+}
+
+export default function MenuItem({ 
+    icon: Icon, 
+    selected = false, 
+    collapsed = false,
+    children 
+}: MenuItemProps) {
+    return (
+        <div
+            className={`
+                w-full px-3 py-2 rounded-md flex items-center gap-3
+                text-sm font-medium transition-all duration-200
+                ${selected 
+                    ? 'text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-500/10' 
+                    : 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800'
+                }
+            `}
+        >
+            <Icon size={16} />
+            {!collapsed && children}
+        </div>
+    );
+} 
+
+
+================================================
+FILE: apps/rowboat/app/scripts/delete_qdrant.ts
+================================================
+import '../lib/loadenv';
+import { qdrantClient } from '../lib/qdrant';
+
+(async () => {
+    try {
+        const result = await qdrantClient.deleteCollection('embeddings');
+        console.log(`Delete qdrant collection 'embeddings' completed with result: ${result}`);
+    } catch (error) {
+        console.error(`Unable to delete qdrant collection 'embeddings': ${error}`);
+    }
+})();
+
+
+================================================
+FILE: apps/rowboat/app/scripts/job-rules.worker.ts
+================================================
+import '../lib/loadenv';
+import { container } from "@/di/container";
+import { IJobRulesWorker } from "@/src/application/workers/job-rules.worker";
+
+(async () => {
+    try {
+        const worker = container.resolve<IJobRulesWorker>('jobRulesWorker');
+        await worker.run();
+    } catch (error) {
+        console.error(`Unable to run scheduled job rules worker: ${error}`);
+    }
+})();
+
+
+================================================
+FILE: apps/rowboat/app/scripts/mongodb-drop-indexes.ts
+================================================
+import '../lib/loadenv';
+import { db } from '../lib/mongodb';
+import { dropAllIndexes } from "../../src/infrastructure/mongodb/drop-indexes";
+
+async function main() {
+    await dropAllIndexes(db);
+    console.log("Indexes dropped (non-_id)");
+}
+
+main().catch((err) => {
+    // eslint-disable-next-line no-console
+    console.error(err);
+    process.exit(1);
+});
+
+
+================================================
+FILE: apps/rowboat/app/scripts/mongodb-ensure-indexes.ts
+================================================
+import '../lib/loadenv';
+import { db } from '../lib/mongodb';
+import { ensureAllIndexes } from "../../src/infrastructure/mongodb/ensure-indexes";
+
+async function main() {
+    await ensureAllIndexes(db);
+    console.log("Indexes ensured");
+}
+
+main().catch((err) => {
+    // eslint-disable-next-line no-console
+    console.error(err);
+    process.exit(1);
+});
+
+
+================================================
+FILE: apps/rowboat/app/scripts/setup_qdrant.ts
+================================================
+import '../lib/loadenv';
+import { qdrantClient } from '../lib/qdrant';
+
+const EMBEDDING_VECTOR_SIZE = Number(process.env.EMBEDDING_VECTOR_SIZE) || 1536;
+
+(async () => {
+    try {
+        const result = await qdrantClient.createCollection('embeddings', {
+            vectors: {
+                size: EMBEDDING_VECTOR_SIZE,
+                distance: 'Dot',
+            },
+        });
+        console.log(`Create qdrant collection 'embeddings' completed with result: ${result}`);
+    } catch (error) {
+        console.error(`Unable to create qdrant collection 'embeddings': ${error}`);
+    }
+})();
+
+
+================================================
+FILE: apps/rowboat/app/styles/pane-effects.ts
+================================================
+export const getPaneClasses = (isActive: boolean, otherIsActive: boolean) => [
+    "transition-all duration-300",
+    isActive ? "scale-[1.02] shadow-xl relative z-10" : "",
+    otherIsActive ? "scale-[0.98] opacity-50" : ""
+]; 
+
+
+================================================
+FILE: apps/rowboat/components/common/copy-as-json-button.tsx
+================================================
+import { CopyButton } from "@/components/common/copy-button";
+
+export function CopyAsJsonButton({ onCopy }: { onCopy: () => void }) {
+    return <div className="absolute top-0 right-0">
+        <CopyButton
+            onCopy={onCopy}
+            label="Copy as JSON"
+            successLabel="Copied"
+        />
+    </div>
+}
+
+
+================================================
+FILE: apps/rowboat/components/common/copy-button.tsx
+================================================
+'use client';
+import { Button } from "@/components/ui/button";
+import { CopyIcon, CheckIcon } from "lucide-react";
+import { useState } from "react";
+
+export function CopyButton({
+    onCopy,
+    label,
+    successLabel,
+}: {
+    onCopy: () => void;
+    label: string;
+    successLabel: string;
+}) {
+    const [showCopySuccess, setShowCopySuccess] = useState(false);
+    
+    const handleCopy = () => {
+        onCopy();
+        setShowCopySuccess(true);
+        setTimeout(() => {
+            setShowCopySuccess(false);
+        }, 500);
+    }
+
+    return (
+        <Button
+            variant="secondary"
+            size="sm"
+            onClick={handleCopy}
+            className="gap-2"
+            showHoverContent
+            hoverContent={showCopySuccess ? successLabel : label}
+        >
+            {showCopySuccess ? (
+                <CheckIcon className="h-4 w-4" />
+            ) : (
+                <CopyIcon className="h-4 w-4" />
+            )}
+        </Button>
+    );
+}
+
+
+================================================
+FILE: apps/rowboat/components/ui/horizontal-divider.tsx
+================================================
+import clsx from 'clsx';
+
+interface HorizontalDividerProps {
+    className?: string;
+}
+
+export function HorizontalDivider({ className }: HorizontalDividerProps) {
+    return (
+        <div className={clsx(
+            "border-t border-gray-200 dark:border-gray-700",
+            className
+        )} />
+    );
+}
+
+
+
+================================================
+FILE: apps/rowboat/components/ui/page-header.tsx
+================================================
+interface PageHeaderProps {
+  title: string;
+  description?: string;
+  children?: React.ReactNode;
+}
+
+export function PageHeader({ title, description, children }: PageHeaderProps) {
+  return (
+    <div className="border-b border-zinc-100 dark:border-zinc-800 bg-white dark:bg-zinc-900">
+      <div className="px-6 py-4">
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-50">
+              {title}
+            </h1>
+            {description && (
+              <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
+                {description}
+              </p>
+            )}
+          </div>
+          {children && <div>{children}</div>}
+        </div>
+      </div>
+    </div>
+  );
+} 
+
+
+================================================
+FILE: apps/rowboat/components/ui/page-heading.tsx
+================================================
+import clsx from 'clsx';
+import { tokens } from "@/app/styles/design-tokens";
+
+interface PageHeadingProps {
+    title: string;
+    description?: string;
+}
+
+export function PageHeading({ title, description }: PageHeadingProps) {
+    return (
+        <div>
+            <h1 className={clsx(
+                tokens.typography.weights.semibold,
+                tokens.typography.sizes["2xl"],
+                tokens.colors.light.text.primary,
+                tokens.colors.dark.text.primary
+            )}>
+                {title}
+            </h1>
+            {description && (
+                <p className={clsx(
+                    "mt-2",
+                    tokens.typography.sizes.base,
+                    tokens.colors.light.text.secondary,
+                    tokens.colors.dark.text.secondary
+                )}>
+                    {description}
+                </p>
+            )}
+        </div>
+    );
+}
+
+
+
+================================================
+FILE: apps/rowboat/components/ui/section-heading.tsx
+================================================
+import clsx from 'clsx';
+import { tokens } from "@/app/styles/design-tokens";
+
+interface SectionHeadingProps {
+  children: React.ReactNode;
+  subheading?: React.ReactNode;
+}
+
+export function SectionHeading({ children, subheading }: SectionHeadingProps) {
+  return (
+    <div className="space-y-1">
+      <div className={clsx(
+        tokens.typography.weights.medium,
+        tokens.typography.sizes.lg,
+        tokens.colors.light.text.primary,
+        tokens.colors.dark.text.primary
+      )}>
+        {children}
+      </div>
+      {subheading && (
+        <p className={clsx(
+          tokens.typography.sizes.sm,
+          tokens.typography.weights.normal,
+          tokens.colors.light.text.secondary,
+          tokens.colors.dark.text.secondary
+        )}>
+          {subheading}
+        </p>
+      )}
+    </div>
+  );
+} 
+
+
+================================================
+FILE: apps/rowboat/components/ui/switch.tsx
+================================================
+import * as React from "react"
+import { Switch as HeroSwitch } from "@heroui/react"
+import { cn } from "@/lib/utils"
+
+interface SwitchProps {
+  checked?: boolean
+  defaultChecked?: boolean
+  onCheckedChange?: (checked: boolean) => void
+  className?: string
+  disabled?: boolean
+}
+
+const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
+  ({ checked, defaultChecked, onCheckedChange, disabled, className }, ref) => {
+    return (
+      <HeroSwitch
+        ref={ref}
+        isSelected={checked}
+        defaultSelected={defaultChecked}
+        onValueChange={onCheckedChange}
+        isDisabled={disabled}
+        color="primary"
+        className={className}
+      />
+    );
+  }
+);
+
+Switch.displayName = "Switch";
+
+export { Switch } 
+
+
+================================================
+FILE: apps/rowboat/components/ui/tabs.tsx
+================================================
+import * as React from "react"
+import { Tabs as HeroTabs, Tab as HeroTab } from "@heroui/react"
+import { cn } from "../../lib/utils"
+
+const Tabs = React.forwardRef<HTMLDivElement, React.ComponentPropsWithoutRef<typeof HeroTabs>>(
+  ({ className, ...props }, ref) => (
+    <HeroTabs
+      ref={ref}
+      className={cn("w-full", className)}
+      {...props}
+    />
+  )
+);
+
+Tabs.displayName = "Tabs";
+
+export { Tabs, HeroTab as Tab } 
+
+
+================================================
+FILE: apps/rowboat/hooks/use-click-away.ts
+================================================
+import { useEffect, RefObject } from 'react';
+
+export function useClickAway(
+    ref: RefObject<HTMLElement | null>,
+    handler: (event: MouseEvent | TouchEvent) => void
+) {
+    useEffect(() => {
+        const listener = (event: MouseEvent | TouchEvent) => {
+            if (!ref.current || ref.current.contains(event.target as Node)) {
+                return;
+            }
+            handler(event);
+        };
+
+        document.addEventListener('mousedown', listener);
+        document.addEventListener('touchstart', listener);
+
+        return () => {
+            document.removeEventListener('mousedown', listener);
+            document.removeEventListener('touchstart', listener);
+        };
+    }, [ref, handler]);
+} 
+
+
+================================================
+FILE: apps/rowboat/lib/utils.ts
+================================================
+import { clsx, type ClassValue } from "clsx"
+import { twMerge } from "tailwind-merge"
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
+}
+
+
+
+================================================
+FILE: apps/rowboat/lib/utils/date.ts
+================================================
+export function isToday(date: Date): boolean {
+    const today = new Date();
+    return date.getDate() === today.getDate() &&
+        date.getMonth() === today.getMonth() &&
+        date.getFullYear() === today.getFullYear();
+}
+
+export function isThisWeek(date: Date): boolean {
+    const now = new Date();
+    const weekStart = new Date(now.getFullYear(), now.getMonth(), now.getDate() - now.getDay());
+    const weekEnd = new Date(now.getFullYear(), now.getMonth(), now.getDate() + (6 - now.getDay()));
+    return date >= weekStart && date <= weekEnd;
+}
+
+export function isThisMonth(date: Date): boolean {
+    const now = new Date();
+    return date.getMonth() === now.getMonth() &&
+        date.getFullYear() === now.getFullYear();
+}
+
+
+================================================
+FILE: apps/rowboat/public/mcp-server-images/firecrawl.webp
+================================================
+[Binary file]
+
+
+================================================
+FILE: apps/rowboat/public/mcp-server-images/klavis.webp
+================================================
+[Binary file]
+
+
+================================================
+FILE: apps/rowboat/public/mcp-server-images/markdown2doc.webp
+================================================
+[Binary file]
+
+
+================================================
+FILE: apps/rowboat/src/application/lib/copilot/current_workflow.ts
+================================================
+export const CURRENT_WORKFLOW_PROMPT = `
+## Section: State of the Current Multi-Agent System
+
+The design of the multi-agent system is represented by the following JSON schema:
+
+\`\`\`
+{workflow_schema}
+\`\`\`
+
+If the workflow has no agents or an empty startAgent, it means the user is yet to create their multi-agent system. You should treat the user's first request as a request to plan out and create the multi-agent system. When creating agents, you must always set a start agent.
+
+---
+`;
+
+
+================================================
+FILE: apps/rowboat/src/application/lib/utils/time-to-next-minute.ts
+================================================
+// returns the number of seconds until the next minute
+export function secondsToNextMinute(): number {
+    const now = new Date();
+    const secondsUntilNextMinute = 60 - now.getSeconds();
+    return secondsUntilNextMinute;
+}
+
+export function minutesToNextHour(): number {
+    const now = new Date();
+    const minutesUntilNextHour = 60 - now.getMinutes();
+    return minutesUntilNextHour;
+}
+
+
+================================================
+FILE: apps/rowboat/src/application/policies/usage-quota.policy.interface.ts
+================================================
+import { QuotaExceededError } from "@/src/entities/errors/common";
+
+export interface IUsageQuotaPolicy {
+    /**
+     * Asserts that the project has not exceeded its usage quota and consumes the action.
+     * Used for general project actions.
+     * 
+     * @param projectId - The ID of the project to assert and consume.
+     * @throws QuotaExceededError if the quota is exceeded.
+     */
+    assertAndConsumeProjectAction(projectId: string): Promise<void>;
+
+
+    /**
+     * Asserts that the project has not exceeded its usage quota for running jobs.
+     * 
+     * @param projectId - The ID of the project to assert and consume.
+     * @throws QuotaExceededError if the quota is exceeded.
+     */
+    assertAndConsumeRunJobAction(projectId: string): Promise<void>;
+}
+
+
+================================================
+FILE: apps/rowboat/src/application/repositories/users.repository.interface.ts
+================================================
+import { z } from "zod";
+import { User } from "@/src/entities/models/user";
+
+export const CreateSchema = User.pick({
+    auth0Id: true,
+    email: true,
+});
+
+export interface IUsersRepository {
+    create(data: z.infer<typeof CreateSchema>): Promise<z.infer<typeof User>>;
+
+    fetch(id: string): Promise<z.infer<typeof User> | null>;
+
+    fetchByAuth0Id(auth0Id: string): Promise<z.infer<typeof User> | null>;
+
+    updateEmail(id: string, email: string): Promise<z.infer<typeof User>>;
+
+    updateBillingCustomerId(id: string, billingCustomerId: string): Promise<z.infer<typeof User>>;
+}
+
+
+================================================
+FILE: apps/rowboat/src/application/services/uploads-storage.service.interface.ts
+================================================
+export interface IUploadsStorageService {
+    getUploadUrl(key: string, contentType: string): Promise<string>;
+    getDownloadUrl(fileId: string): Promise<string>;
+    getFileContents(fileId: string): Promise<Buffer>;
+}
+
+
+================================================
+FILE: apps/rowboat/src/entities/common/paginated-list.ts
+================================================
+import { z } from "zod";
+
+export const PaginatedList = <T extends z.ZodTypeAny>(schema: T) => z.object({
+    items: z.array(schema),
+    nextCursor: z.string().nullable(),
+});
+
+
+================================================
+FILE: apps/rowboat/src/entities/errors/common.ts
+================================================
+export class BillingError extends Error {
+    constructor(message?: string, options?: ErrorOptions) {
+        super(message, options);
+    }
+}
+
+export class QuotaExceededError extends Error {
+    constructor(message?: string, options?: ErrorOptions) {
+        super(message, options);
+    }
+}
+
+export class BadRequestError extends Error {
+    constructor(message?: string, options?: ErrorOptions) {
+        super(message, options);
+    }
+}
+
+export class NotFoundError extends Error {
+    constructor(message?: string, options?: ErrorOptions) {
+        super(message, options);
+    }
+}
+
+export class NotAuthorizedError extends Error {
+    constructor(message?: string, options?: ErrorOptions) {
+        super(message, options);
+    }
+}
+
+
+================================================
+FILE: apps/rowboat/src/entities/errors/job-errors.ts
+================================================
+export class JobAcquisitionError extends Error {
+    constructor(message?: string, options?: ErrorOptions) {
+        super(message, options);
+    }
+}
+
+
+
+================================================
+FILE: apps/rowboat/src/entities/models/api-key.ts
+================================================
+import { z } from "zod";
+
+export const ApiKey = z.object({
+    id: z.string(),
+    projectId: z.string(),
+    key: z.string(),
+    createdAt: z.string().datetime(),
+    lastUsedAt: z.string().datetime().optional(),
+});
+
+
+================================================
+FILE: apps/rowboat/src/entities/models/composio-trigger-deployment.ts
+================================================
+import { z } from "zod";
+
+export const ComposioTriggerDeployment = z.object({
+    id: z.string(),
+    projectId: z.string(),
+    triggerId: z.string(),
+    toolkitSlug: z.string(),
+    triggerTypeSlug: z.string(),
+    triggerTypeName: z.string(),
+    connectedAccountId: z.string(),
+    triggerConfig: z.record(z.string(), z.unknown()),
+    logo: z.string(),
+    createdAt: z.string().datetime(),
+    updatedAt: z.string().datetime(),
+});
+
+
+================================================
+FILE: apps/rowboat/src/entities/models/composio-trigger-type.ts
+================================================
+import { z } from "zod";
+
+export const ComposioTriggerType = z.object({
+    slug: z.string(),
+    name: z.string(),
+    description: z.string(),
+    config: z.object({
+        type: z.literal('object'),
+        properties: z.record(z.string(), z.any()),
+        required: z.array(z.string()).optional(),
+        title: z.string().optional(),
+    }),
+});
+
+
+================================================
+FILE: apps/rowboat/src/entities/models/conversation.ts
+================================================
+import { z } from "zod";
+import { Reason, Turn } from "./turn";
+import { Workflow } from "@/app/lib/types/workflow_types";
+
+export const Conversation = z.object({
+    id: z.string(),
+    projectId: z.string(),
+    workflow: Workflow,
+    reason: Reason,
+    isLiveWorkflow: z.boolean(),
+    turns: z.array(Turn).optional(),
+    createdAt: z.string().datetime(),
+    updatedAt: z.string().datetime().optional(),
+});
+
+
+================================================
+FILE: apps/rowboat/src/entities/models/data-source.ts
+================================================
+import { z } from "zod";
+
+export const DataSource = z.object({
+    id: z.string(),
+    name: z.string(),
+    description: z.string(),
+    projectId: z.string(),
+    active: z.boolean().default(true),
+    status: z.enum([
+        'pending',
+        'ready',
+        'error',
+        'deleted',
+    ]),
+    version: z.number(),
+    error: z.string().nullable(),
+    billingError: z.string().nullable(),
+    createdAt: z.string().datetime(),
+    lastUpdatedAt: z.string().datetime().nullable(),
+    attempts: z.number(),
+    lastAttemptAt: z.string().datetime().nullable(),
+    data: z.discriminatedUnion('type', [
+        z.object({
+            type: z.literal('urls'),
+        }),
+        z.object({
+            type: z.literal('files_local'),
+        }),
+        z.object({
+            type: z.literal('files_s3'),
+        }),
+        z.object({
+            type: z.literal('text'),
+        })
+    ]),
+});
+
+
+================================================
+FILE: apps/rowboat/src/entities/models/project-member.ts
+================================================
+import { z } from "zod";
+
+export const ProjectMember = z.object({
+    id: z.string(),
+    userId: z.string(),
+    projectId: z.string(),
+    createdAt: z.string().datetime(),
+    lastUpdatedAt: z.string().datetime(),
+});
+
+
+================================================
+FILE: apps/rowboat/src/entities/models/project.ts
+================================================
+import { Workflow } from "@/app/lib/types/workflow_types";
+import { z } from "zod";
+
+export const ComposioConnectedAccount = z.object({
+    id: z.string(),
+    authConfigId: z.string(),
+    status: z.enum([
+        'INITIATED',
+        'ACTIVE',
+        'FAILED',
+    ]),
+    createdAt: z.string().datetime(),
+    lastUpdatedAt: z.string().datetime(),
+});
+
+export const CustomMcpServer = z.object({
+    serverUrl: z.string(),
+});
+
+export const Project = z.object({
+    id: z.string().uuid(),
+    name: z.string(),
+    createdAt: z.string().datetime(),
+    lastUpdatedAt: z.string().datetime().optional(),
+    createdByUserId: z.string(),
+    secret: z.string(),
+    draftWorkflow: Workflow,
+    liveWorkflow: Workflow,
+    webhookUrl: z.string().optional(),
+    composioConnectedAccounts: z.record(z.string(), ComposioConnectedAccount).optional(),
+    customMcpServers: z.record(z.string(), CustomMcpServer).optional(),
+});
+
+
+================================================
+FILE: apps/rowboat/src/entities/models/recurring-job-rule.ts
+================================================
+import { Message } from "@/app/lib/types/types";
+import { z } from "zod";
+
+export const RecurringJobRule = z.object({
+    id: z.string(),
+    projectId: z.string(),
+    input: z.object({
+        messages: z.array(Message),
+    }),
+    cron: z.string(), // a cron expression with at most minute-level resolution
+    nextRunAt: z.string().datetime(), // when is the next time this cron should run
+    workerId: z.string().nullable(), // set if currently locked by a worker
+    lastWorkerId: z.string().nullable(),
+    disabled: z.boolean(), // disabled rule - do not process
+    lastProcessedAt: z.string().datetime().optional(), // when was it last processed
+    lastError: z.string().optional(), // error msg if generated during last process
+    createdAt: z.string(),
+    updatedAt: z.string().optional(),
+});
+
+
+================================================
+FILE: apps/rowboat/src/entities/models/scheduled-job-rule.ts
+================================================
+import { Message } from "@/app/lib/types/types";
+import { z } from "zod";
+
+export const ScheduledJobRule = z.object({
+    id: z.string(),
+    projectId: z.string(),
+    input: z.object({
+        messages: z.array(Message),
+    }),
+    nextRunAt: z.string().datetime(),
+    workerId: z.string().nullable(),
+    lastWorkerId: z.string().nullable(),
+    status: z.enum(["pending", "processing", "triggered"]),
+    output: z.object({
+        error: z.string().optional(),
+        jobId: z.string().optional(),
+    }).optional(),
+    processedAt: z.string().datetime().optional(),
+    createdAt: z.string(),
+    updatedAt: z.string().optional(),
+});
+
+
+================================================
+FILE: apps/rowboat/src/entities/models/user.ts
+================================================
+import { z } from "zod";
+
+export const User = z.object({
+    id: z.string(),
+    auth0Id: z.string(),
+    billingCustomerId: z.string().optional(),
+    name: z.string().optional(),
+    email: z.string().optional(),
+    createdAt: z.string().datetime(),
+    updatedAt: z.string().datetime().optional(),
+});
+
+
+================================================
+FILE: apps/rowboat/src/infrastructure/repositories/mongodb.api-keys.indexes.ts
+================================================
+import { IndexDescription } from "mongodb";
+
+export const API_KEYS_COLLECTION = "api_keys";
+
+export const API_KEYS_INDEXES: IndexDescription[] = [
+    { key: { projectId: 1, key: 1 }, name: "projectId_key" },
+    { key: { projectId: 1, createdAt: -1 }, name: "projectId_createdAt_desc" },
+];
+
+
+================================================
+FILE: apps/rowboat/src/infrastructure/repositories/mongodb.composio-trigger-deployments.indexes.ts
+================================================
+import { IndexDescription } from "mongodb";
+
+export const COMPOSIO_TRIGGER_DEPLOYMENTS_COLLECTION = "composio_trigger_deployments";
+
+export const COMPOSIO_TRIGGER_DEPLOYMENTS_INDEXES: IndexDescription[] = [
+    { key: { projectId: 1 }, name: "projectId_idx" },
+    { key: { triggerId: 1 }, name: "triggerId_idx" },
+    { key: { triggerTypeSlug: 1, connectedAccountId: 1 }, name: "triggerTypeSlug_connectedAccountId" },
+];
+
+
+================================================
+FILE: apps/rowboat/src/infrastructure/repositories/mongodb.conversations.indexes.ts
+================================================
+import { IndexDescription } from "mongodb";
+
+export const CONVERSATIONS_COLLECTION = "conversations";
+
+export const CONVERSATIONS_INDEXES: IndexDescription[] = [
+    { key: { projectId: 1, _id: -1 }, name: "projectId__id_desc" },
+];
+
+
+================================================
+FILE: apps/rowboat/src/infrastructure/repositories/mongodb.data-source-docs.indexes.ts
+================================================
+import { IndexDescription } from "mongodb";
+
+export const DATA_SOURCE_DOCS_COLLECTION = "source_docs";
+
+export const DATA_SOURCE_DOCS_INDEXES: IndexDescription[] = [
+    { key: { sourceId: 1, status: 1, _id: -1 }, name: "sourceId_status__id_desc" },
+    { key: { projectId: 1 }, name: "projectId_idx" },
+];
+
+
+================================================
+FILE: apps/rowboat/src/infrastructure/repositories/mongodb.data-sources.indexes.ts
+================================================
+import { IndexDescription } from "mongodb";
+
+export const DATA_SOURCES_COLLECTION = "sources";
+
+export const DATA_SOURCES_INDEXES: IndexDescription[] = [
+    { key: { projectId: 1, _id: -1 }, name: "projectId__id_desc" },
+    { key: { status: 1, createdAt: 1 }, name: "status_createdAt" },
+    { key: { status: 1, lastAttemptAt: 1, attempts: 1, createdAt: 1 }, name: "status_attempts_createdAt" },
+];
+
+
+================================================
+FILE: apps/rowboat/src/infrastructure/repositories/mongodb.jobs.indexes.ts
+================================================
+import { IndexDescription } from "mongodb";
+
+export const JOBS_COLLECTION = "jobs";
+
+export const JOBS_INDEXES: IndexDescription[] = [
+    { key: { status: 1, workerId: 1, createdAt: 1 }, name: "status_workerId_createdAt" },
+    { key: { projectId: 1, _id: -1 }, name: "projectId__id_desc" },
+    { key: { status: 1, projectId: 1, _id: -1 }, name: "status_projectId__id_desc" },
+    { key: { "reason.type": 1, "reason.ruleId": 1, _id: -1 }, name: "reason_rule__id_desc" },
+    { key: { "reason.type": 1, "reason.triggerDeploymentId": 1, _id: -1 }, name: "reason_trigger__id_desc" },
+];
+
+
+================================================
+FILE: apps/rowboat/src/infrastructure/repositories/mongodb.project-members.indexes.ts
+================================================
+import { IndexDescription } from "mongodb";
+
+export const PROJECT_MEMBERS_COLLECTION = "project_members";
+
+export const PROJECT_MEMBERS_INDEXES: IndexDescription[] = [
+    { key: { userId: 1, _id: -1 }, name: "userId__id_desc" },
+    { key: { userId: 1, projectId: 1 }, name: "userId_projectId" },
+];
+
+
+================================================
+FILE: apps/rowboat/src/infrastructure/repositories/mongodb.projects.indexes.ts
+================================================
+import { IndexDescription } from "mongodb";
+
+export const PROJECTS_COLLECTION = "projects";
+
+export const PROJECTS_INDEXES: IndexDescription[] = [
+    { key: { createdByUserId: 1 }, name: "createdByUserId_idx" },
+];
+
+
+================================================
+FILE: apps/rowboat/src/infrastructure/repositories/mongodb.recurring-job-rules.indexes.ts
+================================================
+import { IndexDescription } from "mongodb";
+
+export const RECURRING_JOB_RULES_COLLECTION = "recurring_job_rules";
+
+export const RECURRING_JOB_RULES_INDEXES: IndexDescription[] = [
+    { key: { nextRunAt: 1, workerId: 1, disabled: 1 }, name: "nextRunAt_worker_disabled" },
+    { key: { projectId: 1, _id: -1 }, name: "projectId__id_desc" },
+];
+
+
+================================================
+FILE: apps/rowboat/src/infrastructure/repositories/mongodb.scheduled-job-rules.indexes.ts
+================================================
+import { IndexDescription } from "mongodb";
+
+export const SCHEDULED_JOB_RULES_COLLECTION = "scheduled_job_rules";
+
+export const SCHEDULED_JOB_RULES_INDEXES: IndexDescription[] = [
+    { key: { nextRunAt: 1, status: 1, workerId: 1 }, name: "nextRunAt_status_worker" },
+    { key: { projectId: 1, _id: -1 }, name: "projectId__id_desc" },
+];
+
+
+================================================
+FILE: apps/rowboat/src/infrastructure/repositories/mongodb.shared-workflows.indexes.ts
+================================================
+import { IndexDescription } from "mongodb";
+
+export const SHARED_WORKFLOWS_COLLECTION = "shared_workflows";
+
+export const SHARED_WORKFLOWS_INDEXES: IndexDescription[] = [
+  { key: { expiresAt: 1 }, name: "expiresAt_ttl", expireAfterSeconds: 0 },
+];
+
+
+
+
+================================================
+FILE: apps/rowboat/src/infrastructure/repositories/mongodb.users.indexes.ts
+================================================
+import { IndexDescription } from "mongodb";
+
+export const USERS_COLLECTION = "users";
+
+export const USERS_INDEXES: IndexDescription[] = [
+    { key: { auth0Id: 1 }, name: "auth0Id_unique", unique: true },
+];
+
+
+================================================
+FILE: apps/rowboat/src/infrastructure/services/redis.cache.service.ts
+================================================
+import { ICacheService } from "@/src/application/services/cache.service.interface";
+import { redisClient } from "@/app/lib/redis";
+
+export class RedisCacheService implements ICacheService {
+    async get(key: string): Promise<string | null> {
+        return await redisClient.get(key);
+    }
+
+    async set(key: string, value: string, ttl?: number): Promise<void> {
+        if (ttl) {
+            await redisClient.set(key, value, 'EX', ttl);
+        } else {
+            await redisClient.set(key, value);
+        }
+    }
+
+    async delete(key: string): Promise<boolean> {
+        return await redisClient.del(key) > 0;
+    }
+}
+
+
+================================================
+FILE: apps/rowboatx/components.json
+================================================
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "new-york",
+  "rsc": true,
+  "tsx": true,
+  "tailwind": {
+    "config": "",
+    "css": "app/globals.css",
+    "baseColor": "neutral",
+    "cssVariables": true,
+    "prefix": ""
+  },
+  "iconLibrary": "lucide",
+  "aliases": {
+    "components": "@/components",
+    "utils": "@/lib/utils",
+    "ui": "@/components/ui",
+    "lib": "@/lib",
+    "hooks": "@/hooks"
+  },
+  "registries": {}
+}
+
+
+
+================================================
+FILE: apps/rowboatx/eslint.config.mjs
+================================================
+import { dirname } from "path";
+import { fileURLToPath } from "url";
+import { FlatCompat } from "@eslint/eslintrc";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const compat = new FlatCompat({
+  baseDirectory: __dirname,
+});
+
+const eslintConfig = [
+  ...compat.extends("next/core-web-vitals", "next/typescript"),
+  {
+    ignores: [
+      "node_modules/**",
+      ".next/**",
+      "out/**",
+      "build/**",
+      "next-env.d.ts",
+    ],
+  },
+];
+
+export default eslintConfig;
+
+
+
+================================================
+FILE: apps/rowboatx/global.d.ts
+================================================
+export {};
+
+declare global {
+  interface Window {
+    config: {
+      apiBase: string;
+    };
+  }
+}
+
+
+
+
+================================================
+FILE: apps/rowboatx/next.config.ts
+================================================
+import type { NextConfig } from "next";
+import path from "path";
+
+const nextConfig: NextConfig = {
+  output: "export",
+  turbopack: {
+    // Keep Turbopack scoped to this app instead of inferring a parent workspace root.
+    root: __dirname || path.join(process.cwd()),
+  },
+};
+
+export default nextConfig;
+
+
+
+================================================
+FILE: apps/rowboatx/postcss.config.mjs
+================================================
+const config = {
+  plugins: ["@tailwindcss/postcss"],
+};
+
+export default config;
+
+
+
+================================================
+FILE: apps/rowboatx/tsconfig.json
+================================================
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": ["./*"]
+    }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
+}
+
+
+
+================================================
+FILE: apps/rowboatx/app/layout.tsx
+================================================
+import type { Metadata } from "next";
+import "./globals.css";
+
+export const metadata: Metadata = {
+  title: "RowboatX",
+  description: "RowboatX interface",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en">
+      <body className="antialiased" suppressHydrationWarning>
+        {children}
+      </body>
+    </html>
+  );
+}
+
+
+
+================================================
+FILE: apps/rowboatx/components/markdown-viewer.tsx
+================================================
+"use client";
+
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import "./markdown-viewer.css";
+
+interface MarkdownViewerProps {
+  content: string;
+}
+
+export function MarkdownViewer({ content }: MarkdownViewerProps) {
+  return (
+    <div className="markdown-viewer-wrapper markdown-content">
+      <ReactMarkdown remarkPlugins={[remarkGfm]}>
+        {content}
+      </ReactMarkdown>
+    </div>
+  );
+}
+
+
+
+
+
+================================================
+FILE: apps/rowboatx/components/ai-elements/canvas.tsx
+================================================
+import { Background, ReactFlow, type ReactFlowProps } from "@xyflow/react";
+import type { ReactNode } from "react";
+import "@xyflow/react/dist/style.css";
+
+type CanvasProps = ReactFlowProps & {
+  children?: ReactNode;
+};
+
+export const Canvas = ({ children, ...props }: CanvasProps) => (
+  <ReactFlow
+    deleteKeyCode={["Backspace", "Delete"]}
+    fitView
+    panOnDrag={false}
+    panOnScroll
+    selectionOnDrag={true}
+    zoomOnDoubleClick={false}
+    {...props}
+  >
+    <Background bgColor="var(--sidebar)" />
+    {children}
+  </ReactFlow>
+);
+
+
+
+================================================
+FILE: apps/rowboatx/components/ai-elements/connection.tsx
+================================================
+import type { ConnectionLineComponent } from "@xyflow/react";
+
+const HALF = 0.5;
+
+export const Connection: ConnectionLineComponent = ({
+  fromX,
+  fromY,
+  toX,
+  toY,
+}) => (
+  <g>
+    <path
+      className="animated"
+      d={`M${fromX},${fromY} C ${fromX + (toX - fromX) * HALF},${fromY} ${fromX + (toX - fromX) * HALF},${toY} ${toX},${toY}`}
+      fill="none"
+      stroke="var(--color-ring)"
+      strokeWidth={1}
+    />
+    <circle
+      cx={toX}
+      cy={toY}
+      fill="#fff"
+      r={3}
+      stroke="var(--color-ring)"
+      strokeWidth={1}
+    />
+  </g>
+);
+
+
+
+================================================
+FILE: apps/rowboatx/components/ai-elements/controls.tsx
+================================================
+"use client";
+
+import { cn } from "@/lib/utils";
+import { Controls as ControlsPrimitive } from "@xyflow/react";
+import type { ComponentProps } from "react";
+
+export type ControlsProps = ComponentProps<typeof ControlsPrimitive>;
+
+export const Controls = ({ className, ...props }: ControlsProps) => (
+  <ControlsPrimitive
+    className={cn(
+      "gap-px overflow-hidden rounded-md border bg-card p-1 shadow-none!",
+      "[&>button]:rounded-md [&>button]:border-none! [&>button]:bg-transparent! [&>button]:hover:bg-secondary!",
+      className
+    )}
+    {...props}
+  />
+);
+
+
+
+================================================
+FILE: apps/rowboatx/components/ai-elements/image.tsx
+================================================
+/* eslint-disable @next/next/no-img-element */
+import { cn } from "@/lib/utils";
+import type { Experimental_GeneratedImage } from "ai";
+
+export type ImageProps = Experimental_GeneratedImage & {
+  className?: string;
+  alt?: string;
+};
+
+export const Image = ({
+  base64,
+  mediaType,
+  ...props
+}: ImageProps) => (
+  <img
+    {...props}
+    alt={props.alt}
+    className={cn(
+      "h-auto max-w-full overflow-hidden rounded-md",
+      props.className
+    )}
+    src={`data:${mediaType};base64,${base64}`}
+  />
+);
+
+
+
+================================================
+FILE: apps/rowboatx/components/ai-elements/panel.tsx
+================================================
+import { cn } from "@/lib/utils";
+import { Panel as PanelPrimitive } from "@xyflow/react";
+import type { ComponentProps } from "react";
+
+type PanelProps = ComponentProps<typeof PanelPrimitive>;
+
+export const Panel = ({ className, ...props }: PanelProps) => (
+  <PanelPrimitive
+    className={cn(
+      "m-4 overflow-hidden rounded-md border bg-card p-1",
+      className
+    )}
+    {...props}
+  />
+);
+
+
+
+================================================
+FILE: apps/rowboatx/components/ai-elements/toolbar.tsx
+================================================
+import { cn } from "@/lib/utils";
+import { NodeToolbar, Position } from "@xyflow/react";
+import type { ComponentProps } from "react";
+
+type ToolbarProps = ComponentProps<typeof NodeToolbar>;
+
+export const Toolbar = ({ className, ...props }: ToolbarProps) => (
+  <NodeToolbar
+    className={cn(
+      "flex items-center gap-1 rounded-sm border bg-background p-1.5",
+      className
+    )}
+    position={Position.Bottom}
+    {...props}
+  />
+);
+
+
+
+================================================
+FILE: apps/rowboatx/components/ui/collapsible.tsx
+================================================
+"use client"
+
+import * as CollapsiblePrimitive from "@radix-ui/react-collapsible"
+
+function Collapsible({
+  ...props
+}: React.ComponentProps<typeof CollapsiblePrimitive.Root>) {
+  return <CollapsiblePrimitive.Root data-slot="collapsible" {...props} />
+}
+
+function CollapsibleTrigger({
+  ...props
+}: React.ComponentProps<typeof CollapsiblePrimitive.CollapsibleTrigger>) {
+  return (
+    <CollapsiblePrimitive.CollapsibleTrigger
+      data-slot="collapsible-trigger"
+      {...props}
+    />
+  )
+}
+
+function CollapsibleContent({
+  ...props
+}: React.ComponentProps<typeof CollapsiblePrimitive.CollapsibleContent>) {
+  return (
+    <CollapsiblePrimitive.CollapsibleContent
+      data-slot="collapsible-content"
+      {...props}
+    />
+  )
+}
+
+export { Collapsible, CollapsibleTrigger, CollapsibleContent }
+
+
+
+================================================
+FILE: apps/rowboatx/components/ui/input.tsx
+================================================
+import * as React from "react"
+
+import { cn } from "@/lib/utils"
+
+function Input({ className, type, ...props }: React.ComponentProps<"input">) {
+  return (
+    <input
+      type={type}
+      data-slot="input"
+      className={cn(
+        "file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
+        "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
+        "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+        className
+      )}
+      {...props}
+    />
+  )
+}
+
+export { Input }
+
+
+
+================================================
+FILE: apps/rowboatx/components/ui/progress.tsx
+================================================
+"use client"
+
+import * as React from "react"
+import * as ProgressPrimitive from "@radix-ui/react-progress"
+
+import { cn } from "@/lib/utils"
+
+function Progress({
+  className,
+  value,
+  ...props
+}: React.ComponentProps<typeof ProgressPrimitive.Root>) {
+  return (
+    <ProgressPrimitive.Root
+      data-slot="progress"
+      className={cn(
+        "bg-primary/20 relative h-2 w-full overflow-hidden rounded-full",
+        className
+      )}
+      {...props}
+    >
+      <ProgressPrimitive.Indicator
+        data-slot="progress-indicator"
+        className="bg-primary h-full w-full flex-1 transition-all"
+        style={{ transform: `translateX(-${100 - (value || 0)}%)` }}
+      />
+    </ProgressPrimitive.Root>
+  )
+}
+
+export { Progress }
+
+
+
+================================================
+FILE: apps/rowboatx/components/ui/separator.tsx
+================================================
+"use client"
+
+import * as React from "react"
+import * as SeparatorPrimitive from "@radix-ui/react-separator"
+
+import { cn } from "@/lib/utils"
+
+function Separator({
+  className,
+  orientation = "horizontal",
+  decorative = true,
+  ...props
+}: React.ComponentProps<typeof SeparatorPrimitive.Root>) {
+  return (
+    <SeparatorPrimitive.Root
+      data-slot="separator"
+      decorative={decorative}
+      orientation={orientation}
+      className={cn(
+        "bg-border shrink-0 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px",
+        className
+      )}
+      {...props}
+    />
+  )
+}
+
+export { Separator }
+
+
+
+================================================
+FILE: apps/rowboatx/components/ui/skeleton.tsx
+================================================
+import { cn } from "@/lib/utils"
+
+function Skeleton({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="skeleton"
+      className={cn("bg-accent animate-pulse rounded-md", className)}
+      {...props}
+    />
+  )
+}
+
+export { Skeleton }
+
+
+
+================================================
+FILE: apps/rowboatx/components/ui/textarea.tsx
+================================================
+import * as React from "react"
+
+import { cn } from "@/lib/utils"
+
+function Textarea({ className, ...props }: React.ComponentProps<"textarea">) {
+  return (
+    <textarea
+      data-slot="textarea"
+      className={cn(
+        "border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:bg-input/30 flex field-sizing-content min-h-16 w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
+        className
+      )}
+      {...props}
+    />
+  )
+}
+
+export { Textarea }
+
+
+
+================================================
+FILE: apps/rowboatx/hooks/use-mobile.ts
+================================================
+import * as React from "react"
+
+const MOBILE_BREAKPOINT = 768
+
+export function useIsMobile() {
+  const [isMobile, setIsMobile] = React.useState<boolean | undefined>(undefined)
+
+  React.useEffect(() => {
+    const mql = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`)
+    const onChange = () => {
+      setIsMobile(window.innerWidth < MOBILE_BREAKPOINT)
+    }
+    mql.addEventListener("change", onChange)
+    setIsMobile(window.innerWidth < MOBILE_BREAKPOINT)
+    return () => mql.removeEventListener("change", onChange)
+  }, [])
+
+  return !!isMobile
+}
+
+
+
+================================================
+FILE: apps/rowboatx/lib/utils.ts
+================================================
+import { clsx, type ClassValue } from "clsx"
+import { twMerge } from "tailwind-merge"
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
+}
+
+
+
+
+================================================
+FILE: apps/rowboatx/types/turndown.d.ts
+================================================
+declare module "turndown" {
+  export default class TurndownService {
+    constructor(options?: unknown);
+    addRule(name: string, rule: unknown): void;
+    use(plugin: unknown): void;
+    turndown(html: string): string;
+  }
+}
+
+
+
+================================================
+FILE: apps/x/package.json
+================================================
+{
+  "name": "x",
+  "private": true,
+  "type": "module",
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "npm run deps && concurrently -k \"npm:renderer\" \"npm:main\"",
+    "renderer": "cd apps/renderer && npm run dev",
+    "shared": "cd packages/shared && npm run build",
+    "core": "cd packages/core && npm run build",
+    "preload": "cd apps/preload && npm run build",
+    "deps": "npm run shared && npm run core && npm run preload",
+    "main": "wait-on http://localhost:5173 && cd apps/main && npm run build && npm run start",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.2",
+    "@types/node": "^25.0.3",
+    "concurrently": "^9.2.1",
+    "eslint": "^9.39.2",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.4.26",
+    "globals": "^16.5.0",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.50.1",
+    "wait-on": "^9.0.3"
+  }
+}
+
+
+================================================
+FILE: apps/x/pnpm-workspace.yaml
+================================================
+packages:
+  - apps/*
+  - packages/*
+
+onlyBuiltDependencies:
+  - core-js
+  - electron
+  - electron-winstaller
+  - esbuild
+  - fs-xattr
+  - macos-alias
+  - protobufjs
+
+
+
+================================================
+FILE: apps/x/tsconfig.base.json
+================================================
+{
+    "compilerOptions": {
+        "strict": true,
+        "skipLibCheck": true,
+        "baseUrl": ".",
+        "target": "ES2022",
+        "module": "NodeNext",
+        "moduleResolution": "NodeNext"
+    }
+}
+
+
+================================================
+FILE: apps/x/apps/main/tsconfig.json
+================================================
+{
+    "extends": "../../tsconfig.base.json",
+    "compilerOptions": {
+        "outDir": "dist",
+        "rootDir": "src",
+        "types": [
+            "node",
+            "electron"
+        ]
+    },
+    "include": [
+        "src"
+    ]
+}
+
+
+================================================
+FILE: apps/x/apps/main/src/test-agent.ts
+================================================
+import * as runsCore from '@x/core/dist/runs/runs.js';
+import { bus } from '@x/core/dist/runs/bus.js';
+
+async function main() {
+    const { id } = await runsCore.createRun({
+        // this will expect an agent file to exist at ~/.rowboat/agents/test-agent.md
+        agentId: 'test-agent',
+    });
+    console.log(`created run: ${id}`);
+
+    await bus.subscribe(id, async (event) => {
+        console.log(`got event: ${JSON.stringify(event)}`);
+    });
+
+    const msgId = await runsCore.createMessage(id, 'whats your name?');
+    console.log(`created message: ${msgId}`);
+}
+
+main();
+
+
+================================================
+FILE: apps/x/apps/preload/package.json
+================================================
+{
+  "name": "@x/preload",
+  "private": true,
+  "type": "module",
+  "main": "dist/preload.js",
+  "scripts": {
+    "build": "rm -rf dist && tsc && esbuild dist/preload.js --bundle --platform=node --format=cjs --external:electron --outfile=dist/preload.bundle.js && mv dist/preload.bundle.js dist/preload.js"
+  },
+  "dependencies": {
+    "@x/shared": "workspace:*"
+  },
+  "devDependencies": {
+    "electron": "^39.2.7",
+    "esbuild": "^0.24.2"
+  }
+}
+
+
+================================================
+FILE: apps/x/apps/preload/tsconfig.json
+================================================
+{
+    "extends": "../../tsconfig.base.json",
+    "compilerOptions": {
+      "outDir": "dist",
+      "rootDir": "src",
+      "types": ["electron"]
+    },
+    "include": ["src"]
+  }
+
+
+================================================
+FILE: apps/x/apps/renderer/components.json
+================================================
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "new-york",
+  "rsc": false,
+  "tsx": true,
+  "tailwind": {
+    "config": "",
+    "css": "src/App.css",
+    "baseColor": "neutral",
+    "cssVariables": true,
+    "prefix": ""
+  },
+  "iconLibrary": "lucide",
+  "aliases": {
+    "components": "@/components",
+    "utils": "@/lib/utils",
+    "ui": "@/components/ui",
+    "lib": "@/lib",
+    "hooks": "@/hooks"
+  },
+  "registries": {}
+}
+
+
+
+================================================
+FILE: apps/x/apps/renderer/eslint.config.js
+================================================
+import js from '@eslint/js'
+import globals from 'globals'
+import reactHooks from 'eslint-plugin-react-hooks'
+import reactRefresh from 'eslint-plugin-react-refresh'
+import tseslint from 'typescript-eslint'
+import { defineConfig, globalIgnores } from 'eslint/config'
+
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      js.configs.recommended,
+      tseslint.configs.recommended,
+      reactHooks.configs.flat.recommended,
+      reactRefresh.configs.vite,
+    ],
+    languageOptions: {
+      ecmaVersion: 2020,
+      globals: globals.browser,
+    },
+  },
+])
+
+
+
+================================================
+FILE: apps/x/apps/renderer/tsconfig.app.json
+================================================
+{
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+    "target": "ES2022",
+    "useDefineForClassFields": true,
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "types": ["vite/client"],
+    "skipLibCheck": true,
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": true,
+    "moduleDetection": "force",
+    "noEmit": true,
+    "jsx": "react-jsx",
+
+    /* Path Aliases */
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "erasableSyntaxOnly": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedSideEffectImports": true
+  },
+  "include": ["src"]
+}
+
+
+
+================================================
+FILE: apps/x/apps/renderer/tsconfig.json
+================================================
+{
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
+}
+
+
+
+================================================
+FILE: apps/x/apps/renderer/tsconfig.node.json
+================================================
+{
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
+    "target": "ES2023",
+    "lib": ["ES2023"],
+    "module": "ESNext",
+    "types": ["node"],
+    "skipLibCheck": true,
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": true,
+    "moduleDetection": "force",
+    "noEmit": true,
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "erasableSyntaxOnly": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedSideEffectImports": true
+  },
+  "include": ["vite.config.ts"]
+}
+
+
+
+================================================
+FILE: apps/x/apps/renderer/vite.config.ts
+================================================
+import path from "path"
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import tailwindcss from '@tailwindcss/vite'
+
+// https://vite.dev/config/
+export default defineConfig({
+  base: './',  // Use relative paths for assets (required for Electron custom protocol)
+  plugins: [
+    react(),
+    tailwindcss(),
+  ],
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
+    },
+  },
+  build: {
+    outDir: 'dist',
+  },
+})
+
+
+
+================================================
+FILE: apps/x/apps/renderer/src/index.css
+================================================
+@import "tailwindcss";
+
+
+
+================================================
+FILE: apps/x/apps/renderer/src/main.tsx
+================================================
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import './index.css'
+import App from './App.tsx'
+import { PostHogProvider } from 'posthog-js/react'
+import { ThemeProvider } from '@/contexts/theme-context'
+
+const options = {
+  api_host: import.meta.env.VITE_PUBLIC_POSTHOG_HOST,
+  defaults: '2025-11-30',
+} as const
+
+createRoot(document.getElementById('root')!).render(
+  <StrictMode>
+    <PostHogProvider apiKey={import.meta.env.VITE_PUBLIC_POSTHOG_KEY} options={options}>
+      <ThemeProvider defaultTheme="system">
+        <App />
+      </ThemeProvider>
+    </PostHogProvider>
+  </StrictMode>,
+)
+
+
+
+================================================
+FILE: apps/x/apps/renderer/src/components/ai-elements/markdown-code-override.tsx
+================================================
+import { isValidElement, type JSX } from 'react'
+import { FilePathCard } from './file-path-card'
+
+export function MarkdownPreOverride(props: JSX.IntrinsicElements['pre']) {
+  const { children, ...rest } = props
+
+  // Check if the child is a <code> with className "language-filepath"
+  if (isValidElement(children)) {
+    const childProps = children.props as { className?: string; children?: unknown }
+    if (
+      typeof childProps.className === 'string' &&
+      childProps.className.includes('language-filepath')
+    ) {
+      // Extract the text content from the code element
+      const text = typeof childProps.children === 'string'
+        ? childProps.children.trim()
+        : ''
+      if (text) {
+        return <FilePathCard filePath={text} />
+      }
+    }
+  }
+
+  // Passthrough for all other code blocks - return children directly
+  // so Streamdown's own rendering (syntax highlighting, etc.) is preserved
+  return <pre {...rest}>{children}</pre>
+}
+
+
+
+================================================
+FILE: apps/x/apps/renderer/src/components/ui/collapsible.tsx
+================================================
+"use client"
+
+import * as CollapsiblePrimitive from "@radix-ui/react-collapsible"
+
+function Collapsible({
+  ...props
+}: React.ComponentProps<typeof CollapsiblePrimitive.Root>) {
+  return <CollapsiblePrimitive.Root data-slot="collapsible" {...props} />
+}
+
+function CollapsibleTrigger({
+  ...props
+}: React.ComponentProps<typeof CollapsiblePrimitive.CollapsibleTrigger>) {
+  return (
+    <CollapsiblePrimitive.CollapsibleTrigger
+      data-slot="collapsible-trigger"
+      {...props}
+    />
+  )
+}
+
+function CollapsibleContent({
+  ...props
+}: React.ComponentProps<typeof CollapsiblePrimitive.CollapsibleContent>) {
+  return (
+    <CollapsiblePrimitive.CollapsibleContent
+      data-slot="collapsible-content"
+      {...props}
+    />
+  )
+}
+
+export { Collapsible, CollapsibleTrigger, CollapsibleContent }
+
+
+
+================================================
+FILE: apps/x/apps/renderer/src/components/ui/input.tsx
+================================================
+import * as React from "react"
+
+import { cn } from "@/lib/utils"
+
+function Input({ className, type, ...props }: React.ComponentProps<"input">) {
+  return (
+    <input
+      type={type}
+      data-slot="input"
+      className={cn(
+        "file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
+        "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
+        "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+        className
+      )}
+      {...props}
+    />
+  )
+}
+
+export { Input }
+
+
+
+================================================
+FILE: apps/x/apps/renderer/src/components/ui/progress.tsx
+================================================
+"use client"
+
+import * as React from "react"
+import * as ProgressPrimitive from "@radix-ui/react-progress"
+
+import { cn } from "@/lib/utils"
+
+function Progress({
+  className,
+  value,
+  ...props
+}: React.ComponentProps<typeof ProgressPrimitive.Root>) {
+  return (
+    <ProgressPrimitive.Root
+      data-slot="progress"
+      className={cn(
+        "bg-primary/20 relative h-2 w-full overflow-hidden rounded-full",
+        className
+      )}
+      {...props}
+    >
+      <ProgressPrimitive.Indicator
+        data-slot="progress-indicator"
+        className="bg-primary h-full w-full flex-1 transition-all"
+        style={{ transform: `translateX(-${100 - (value || 0)}%)` }}
+      />
+    </ProgressPrimitive.Root>
+  )
+}
+
+export { Progress }
+
+
+
+================================================
+FILE: apps/x/apps/renderer/src/components/ui/separator.tsx
+================================================
+import * as React from "react"
+import * as SeparatorPrimitive from "@radix-ui/react-separator"
+
+import { cn } from "@/lib/utils"
+
+function Separator({
+  className,
+  orientation = "horizontal",
+  decorative = true,
+  ...props
+}: React.ComponentProps<typeof SeparatorPrimitive.Root>) {
+  return (
+    <SeparatorPrimitive.Root
+      data-slot="separator"
+      decorative={decorative}
+      orientation={orientation}
+      className={cn(
+        "bg-border shrink-0 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px",
+        className
+      )}
+      {...props}
+    />
+  )
+}
+
+export { Separator }
+
+
+
+================================================
+FILE: apps/x/apps/renderer/src/components/ui/skeleton.tsx
+================================================
+import { cn } from "@/lib/utils"
+
+function Skeleton({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="skeleton"
+      className={cn("bg-accent animate-pulse rounded-md", className)}
+      {...props}
+    />
+  )
+}
+
+export { Skeleton }
+
+
+
+================================================
+FILE: apps/x/apps/renderer/src/components/ui/sonner.tsx
+================================================
+import {
+  CircleCheckIcon,
+  InfoIcon,
+  Loader2Icon,
+  OctagonXIcon,
+  TriangleAlertIcon,
+} from "lucide-react"
+import { Toaster as Sonner, type ToasterProps } from "sonner"
+
+const Toaster = ({ ...props }: ToasterProps) => {
+  return (
+    <Sonner
+      className="toaster group"
+      icons={{
+        success: <CircleCheckIcon className="size-4" />,
+        info: <InfoIcon className="size-4" />,
+        warning: <TriangleAlertIcon className="size-4" />,
+        error: <OctagonXIcon className="size-4" />,
+        loading: <Loader2Icon className="size-4 animate-spin" />,
+      }}
+      style={
+        {
+          "--normal-bg": "var(--popover)",
+          "--normal-text": "var(--popover-foreground)",
+          "--normal-border": "var(--border)",
+          "--border-radius": "var(--radius)",
+        } as React.CSSProperties
+      }
+      {...props}
+    />
+  )
+}
+
+export { Toaster }
+
+
+
+================================================
+FILE: apps/x/apps/renderer/src/components/ui/textarea.tsx
+================================================
+import * as React from "react"
+import { cn } from "../../lib/utils"
+
+export interface TextareaProps
+  extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {}
+
+const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
+  ({ className, ...props }, ref) => {
+    return (
+      <textarea
+        className={cn(
+          "border-input text-foreground placeholder:text-muted-foreground dark:bg-input/30 flex min-h-[80px] w-full rounded-md border bg-transparent px-3 py-2 text-sm shadow-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50",
+          className
+        )}
+        ref={ref}
+        {...props}
+      />
+    )
+  }
+)
+Textarea.displayName = "Textarea"
+
+export { Textarea }
+
+
+
+================================================
+FILE: apps/x/apps/renderer/src/contexts/file-card-context.tsx
+================================================
+import { createContext, useContext, type ReactNode } from 'react'
+
+interface FileCardContextType {
+  onOpenKnowledgeFile: (path: string) => void
+}
+
+const FileCardContext = createContext<FileCardContextType | null>(null)
+
+export function useFileCard() {
+  const ctx = useContext(FileCardContext)
+  if (!ctx) throw new Error('useFileCard must be used within FileCardProvider')
+  return ctx
+}
+
+export function FileCardProvider({
+  onOpenKnowledgeFile,
+  children,
+}: {
+  onOpenKnowledgeFile: (path: string) => void
+  children: ReactNode
+}) {
+  return (
+    <FileCardContext.Provider value={{ onOpenKnowledgeFile }}>
+      {children}
+    </FileCardContext.Provider>
+  )
+}
+
+
+
+================================================
+FILE: apps/x/apps/renderer/src/hooks/use-debounce.ts
+================================================
+import { useState, useEffect } from 'react'
+
+/**
+ * Debounce a value by a specified delay
+ * @param value The value to debounce
+ * @param delay The delay in milliseconds
+ * @returns The debounced value
+ */
+export function useDebounce<T>(value: T, delay: number): T {
+  const [debouncedValue, setDebouncedValue] = useState<T>(value)
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value)
+    }, delay)
+
+    return () => {
+      clearTimeout(handler)
+    }
+  }, [value, delay])
+
+  return debouncedValue
+}
+
+
+
+================================================
+FILE: apps/x/apps/renderer/src/hooks/use-mobile.ts
+================================================
+import * as React from "react"
+
+const MOBILE_BREAKPOINT = 768
+
+export function useIsMobile() {
+  const [isMobile, setIsMobile] = React.useState<boolean | undefined>(undefined)
+
+  React.useEffect(() => {
+    const mql = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`)
+    const onChange = () => {
+      setIsMobile(window.innerWidth < MOBILE_BREAKPOINT)
+    }
+    mql.addEventListener("change", onChange)
+    setIsMobile(window.innerWidth < MOBILE_BREAKPOINT)
+    return () => mql.removeEventListener("change", onChange)
+  }, [])
+
+  return !!isMobile
+}
+
+
+
+================================================
+FILE: apps/x/apps/renderer/src/lib/google-client-id-store.ts
+================================================
+let googleClientId: string | null = null;
+
+export function getGoogleClientId(): string | null {
+  return googleClientId;
+}
+
+export function setGoogleClientId(clientId: string): void {
+  const trimmed = clientId.trim();
+  if (!trimmed) {
+    return;
+  }
+  googleClientId = trimmed;
+}
+
+export function clearGoogleClientId(): void {
+  googleClientId = null;
+}
+
+
+
+================================================
+FILE: apps/x/apps/renderer/src/lib/mention-files.ts
+================================================
+import { stripKnowledgePrefix } from '@/lib/wiki-links'
+
+type BuildMentionFileListOptions = {
+  files: string[]
+  activePath?: string | null
+  recentFiles?: string[]
+}
+
+export const buildMentionFileList = ({
+  files,
+  activePath,
+  recentFiles,
+}: BuildMentionFileListOptions) => {
+  const ordered: string[] = []
+  const seen = new Set<string>()
+  const normalizedFiles = files.map(stripKnowledgePrefix)
+  const fileSet = new Set(normalizedFiles)
+
+  const addFile = (path?: string | null) => {
+    if (!path) return
+    const normalized = stripKnowledgePrefix(path)
+    if (!fileSet.has(normalized) || seen.has(normalized)) {
+      return
+    }
+    seen.add(normalized)
+    ordered.push(normalized)
+  }
+
+  addFile(activePath)
+  for (const recent of recentFiles ?? []) {
+    addFile(recent)
+  }
+  for (const file of normalizedFiles) {
+    addFile(file)
+  }
+
+  return ordered
+}
+
+
+
+================================================
+FILE: apps/x/apps/renderer/src/lib/utils.ts
+================================================
+import { clsx, type ClassValue } from "clsx"
+import { twMerge } from "tailwind-merge"
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
+}
+
+
+
+
+================================================
+FILE: apps/x/apps/renderer/src/lib/wiki-links.ts
+================================================
+const KNOWLEDGE_PREFIX = 'knowledge/'
+
+export const stripKnowledgePrefix = (path: string) =>
+  path.startsWith(KNOWLEDGE_PREFIX) ? path.slice(KNOWLEDGE_PREFIX.length) : path
+
+export const normalizeWikiPath = (input: string) => {
+  const trimmed = input.trim().replace(/^\/+/, '').replace(/^\.\//, '')
+  return stripKnowledgePrefix(trimmed)
+}
+
+export const ensureMarkdownExtension = (path: string) => {
+  const lastSegment = path.split('/').pop() ?? path
+  if (lastSegment.includes('.')) return path
+  return `${path}.md`
+}
+
+export const toKnowledgePath = (wikiPath: string) => {
+  const normalized = normalizeWikiPath(wikiPath)
+  if (!normalized || normalized.includes('..') || normalized.endsWith('/')) return null
+  return `${KNOWLEDGE_PREFIX}${ensureMarkdownExtension(normalized)}`
+}
+
+export const wikiLabel = (wikiPath: string) => {
+  const normalized = normalizeWikiPath(wikiPath)
+  const name = normalized.split('/').pop() || normalized
+  return name.replace(/\.md$/i, '')
+}
+
+
+
+================================================
+FILE: apps/x/packages/core/tsconfig.json
+================================================
+{
+    "extends": "../../tsconfig.base.json",
+    "compilerOptions": {
+        "declaration": true,
+        "outDir": "dist",
+        "rootDir": "src",
+        "types": ["node"],
+        "jsx": "react-jsx"
+    },
+    "include": [
+        "src"
+    ]
+}
+
+
+================================================
+FILE: apps/x/packages/core/src/index.ts
+================================================
+// Workspace filesystem operations
+export * as workspace from './workspace/workspace.js';
+
+// Workspace watcher
+export * as watcher from './workspace/watcher.js';
+
+// Config initialization
+export { initConfigs } from './config/initConfigs.js';
+
+
+================================================
+FILE: apps/x/packages/core/src/application/assistant/agent.ts
+================================================
+import { Agent, ToolAttachment } from "@x/shared/dist/agent.js";
+import z from "zod";
+import { CopilotInstructions } from "./instructions.js";
+import { BuiltinTools } from "../lib/builtin-tools.js";
+
+const tools: Record<string, z.infer<typeof ToolAttachment>> = {};
+for (const name of Object.keys(BuiltinTools)) {
+    tools[name] = {
+        type: "builtin",
+        name,
+    };
+}
+
+export const CopilotAgent: z.infer<typeof Agent> = {
+    name: "rowboatx",
+    description: "Rowboatx copilot",
+    instructions: CopilotInstructions,
+    tools,
+}
+
+
+================================================
+FILE: apps/x/packages/core/src/auth/provider-client-id.ts
+================================================
+type ProviderClientIdOverrides = Map<string, string>;
+
+const providerClientIdOverrides: ProviderClientIdOverrides = new Map();
+
+export function setProviderClientIdOverride(provider: string, clientId: string): void {
+  const trimmed = clientId.trim();
+  if (!trimmed) {
+    return;
+  }
+  providerClientIdOverrides.set(provider, trimmed);
+}
+
+export function getProviderClientIdOverride(provider: string): string | undefined {
+  return providerClientIdOverrides.get(provider);
+}
+
+export function hasProviderClientIdOverride(provider: string): boolean {
+  return providerClientIdOverrides.has(provider);
+}
+
+export function clearProviderClientIdOverride(provider: string): void {
+  providerClientIdOverrides.delete(provider);
+}
+
+
+
+================================================
+FILE: apps/x/packages/core/src/composio/index.ts
+================================================
+// Composio integration for Rowboat X
+
+export * from './types.js';
+export * from './client.js';
+export * from './repo.js';
+
+
+
+================================================
+FILE: apps/x/packages/core/src/knowledge/limit_event_items.ts
+================================================
+export const MAX_EVENT_ITEMS = 50;
+
+export function limitEventItems(items: string[], max: number = MAX_EVENT_ITEMS): { items: string[]; truncated: boolean } {
+    if (items.length <= max) {
+        return { items, truncated: false };
+    }
+    return { items: items.slice(0, max), truncated: true };
+}
+
+
+
+================================================
+FILE: apps/x/packages/core/src/knowledge/granola/index.ts
+================================================
+// Re-export public API
+export { init } from './sync.js';
+export { IGranolaConfigRepo, FSGranolaConfigRepo } from './repo.js';
+export { GranolaConfig } from './types.js';
+
+
+
+
+================================================
+FILE: apps/x/packages/core/src/pre_built/index.ts
+================================================
+export { init, triggerAgent, getStatus } from './runner.js';
+export {
+    loadConfig,
+    saveConfig,
+    getAgentConfig,
+    setAgentConfig,
+    loadUserConfig,
+    saveUserConfig,
+    getUserConfigPath,
+} from './config.js';
+export {
+    PreBuiltConfig,
+    PreBuiltAgentConfig,
+    PreBuiltState,
+    UserConfig,
+    PREBUILT_AGENTS,
+    type PreBuiltAgentName,
+} from './types.js';
+
+
+
+================================================
+FILE: apps/x/packages/core/src/pre_built/types.ts
+================================================
+import { z } from 'zod';
+
+export const UserConfig = z.object({
+    name: z.string(),
+    email: z.string().email(),
+    domain: z.string(),
+});
+
+export type UserConfig = z.infer<typeof UserConfig>;
+
+export const PreBuiltAgentConfig = z.object({
+    enabled: z.boolean().default(false),
+    intervalMs: z.number().default(5 * 60 * 1000), // 5 minutes default
+});
+
+export type PreBuiltAgentConfig = z.infer<typeof PreBuiltAgentConfig>;
+
+export const PreBuiltConfig = z.object({
+    agents: z.record(z.string(), PreBuiltAgentConfig).default({}),
+});
+
+export type PreBuiltConfig = z.infer<typeof PreBuiltConfig>;
+
+export const PreBuiltState = z.object({
+    lastRunTimes: z.record(z.string(), z.string()).default({}), // agentName -> ISO timestamp
+});
+
+export type PreBuiltState = z.infer<typeof PreBuiltState>;
+
+// Registry of available pre-built agents
+export const PREBUILT_AGENTS = [
+    'meeting-prep',
+    'email-draft',
+] as const;
+
+export type PreBuiltAgentName = typeof PREBUILT_AGENTS[number];
+
+
+
+================================================
+FILE: apps/x/packages/core/src/runs/bus.ts
+================================================
+import container from "../di/container.js";
+import { IBus } from "../application/lib/bus.js";
+
+export const bus = container.resolve<IBus>('bus');
+
+
+================================================
+FILE: apps/x/packages/core/src/runs/lock.ts
+================================================
+export interface IRunsLock {
+    lock(runId: string): Promise<boolean>;
+    release(runId: string): Promise<void>;
+}
+
+export class InMemoryRunsLock implements IRunsLock {
+    private locks: Record<string, boolean> = {};
+
+    async lock(runId: string): Promise<boolean> {
+        if (this.locks[runId]) {
+            return false;
+        }
+        this.locks[runId] = true;
+        return true;
+    }
+
+    async release(runId: string): Promise<void> {
+        delete this.locks[runId];
+    }
+}
+
+
+
+================================================
+FILE: apps/x/packages/core/src/services/service_bus.ts
+================================================
+import type { ServiceEventType } from "@x/shared/dist/service-events.js";
+
+type ServiceEventHandler = (event: ServiceEventType) => Promise<void> | void;
+
+export class ServiceBus {
+    private subscribers: ServiceEventHandler[] = [];
+
+    async publish(event: ServiceEventType): Promise<void> {
+        const pending = this.subscribers.map(async (handler) => handler(event));
+        await Promise.all(pending);
+    }
+
+    async subscribe(handler: ServiceEventHandler): Promise<() => void> {
+        this.subscribers.push(handler);
+        return () => {
+            const idx = this.subscribers.indexOf(handler);
+            if (idx >= 0) {
+                this.subscribers.splice(idx, 1);
+            }
+        };
+    }
+}
+
+export const serviceBus = new ServiceBus();
+
+
+
+================================================
+FILE: apps/x/packages/shared/package.json
+================================================
+{
+    "name": "@x/shared",
+    "private": true,
+    "type": "module",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "scripts": {
+      "build": "rm -rf dist && tsc",
+      "dev": "tsc -w"
+    },
+    "dependencies": {
+      "zod": "^4.2.1"
+    }
+}
+
+
+================================================
+FILE: apps/x/packages/shared/tsconfig.json
+================================================
+{
+    "extends": "../../tsconfig.base.json",
+    "compilerOptions": {
+        "declaration": true,
+        "outDir": "dist",
+        "rootDir": "src",
+    },
+    "include": [
+        "src"
+    ]
+}
+
+
+================================================
+FILE: apps/x/packages/shared/src/agent-schedule-state.ts
+================================================
+import z from "zod";
+
+// "triggered" is terminal state for once-schedules (will not run again)
+export const AgentScheduleStatus = z.enum(["scheduled", "running", "finished", "failed", "triggered"]);
+
+export const AgentScheduleStateEntry = z.object({
+    status: AgentScheduleStatus,
+    startedAt: z.string().nullable(), // When current run started (for timeout detection)
+    lastRunAt: z.string().nullable(), // ISO 8601 local datetime
+    nextRunAt: z.string().nullable(), // ISO 8601 local datetime
+    lastError: z.string().nullable(),
+    runCount: z.number().default(0),
+});
+
+export const AgentScheduleState = z.object({
+    agents: z.record(z.string(), AgentScheduleStateEntry),
+});
+
+
+
+================================================
+FILE: apps/x/packages/shared/src/agent.ts
+================================================
+import { z } from "zod";
+
+export const BaseTool = z.object({
+    name: z.string(),
+});
+
+export const BuiltinTool = BaseTool.extend({
+    type: z.literal("builtin"),
+});
+
+export const McpTool = BaseTool.extend({
+    type: z.literal("mcp"),
+    description: z.string(),
+    inputSchema: z.any(),
+    mcpServerName: z.string(),
+});
+
+export const AgentAsATool = BaseTool.extend({
+    type: z.literal("agent"),
+});
+
+export const ToolAttachment = z.discriminatedUnion("type", [
+    BuiltinTool,
+    McpTool,
+    AgentAsATool,
+]);
+
+export const Agent = z.object({
+    name: z.string(),
+    provider: z.string().optional(),
+    model: z.string().optional(),
+    description: z.string().optional(),
+    instructions: z.string(),
+    tools: z.record(z.string(), ToolAttachment).optional(),
+});
+
+
+
+================================================
+FILE: apps/x/packages/shared/src/example.ts
+================================================
+import z from "zod"
+import { Agent } from "./agent.js"
+import { McpServerDefinition } from "./mcp.js";
+
+export const Example = z.object({
+    id: z.string(),
+    instructions: z.string().optional(),
+    description: z.string().optional(),
+    entryAgent: z.string().optional(),
+    agents: z.array(Agent).optional(),
+    mcpServers: z.record(z.string(), McpServerDefinition).optional(),
+});
+
+
+
+================================================
+FILE: apps/x/packages/shared/src/index.ts
+================================================
+import { PrefixLogger } from './prefix-logger.js';
+
+export * as ipc from './ipc.js';
+export * as models from './models.js';
+export * as workspace from './workspace.js';
+export * as mcp from './mcp.js';
+export * as agentSchedule from './agent-schedule.js';
+export * as agentScheduleState from './agent-schedule-state.js';
+export * as serviceEvents from './service-events.js';
+export { PrefixLogger };
+
+
+
+================================================
+FILE: apps/x/packages/shared/src/models.ts
+================================================
+import { z } from "zod";
+
+export const LlmProvider = z.object({
+  flavor: z.enum(["openai", "anthropic", "google", "openrouter", "aigateway", "ollama", "openai-compatible"]),
+  apiKey: z.string().optional(),
+  baseURL: z.string().optional(),
+  headers: z.record(z.string(), z.string()).optional(),
+});
+
+export const LlmModelConfig = z.object({
+  provider: LlmProvider,
+  model: z.string(),
+});
+
+
+
+================================================
+FILE: apps/x/packages/shared/src/prefix-logger.ts
+================================================
+// create a PrefixLogger class that wraps console.log with a prefix
+// and allows chaining with a parent logger
+export class PrefixLogger {
+    private prefix: string;
+    private parent: PrefixLogger | null;
+
+    constructor(prefix: string, parent: PrefixLogger | null = null) {
+        this.prefix = prefix;
+        this.parent = parent;
+    }
+
+    log(...args: unknown[]) {
+        const timestamp = new Date().toISOString();
+        const prefix = '[' + this.prefix + ']';
+
+        if (this.parent) {
+            this.parent.log(prefix, ...args);
+        } else {
+            console.log(timestamp, prefix, ...args);
+        }
+    }
+
+    child(childPrefix: string): PrefixLogger {
+        return new PrefixLogger(childPrefix, this);
+    }
+}
+
+
+================================================
+FILE: .github/workflows/x-publish.yml
+================================================
+name: Publish to npm
+
+on: workflow_dispatch
+
+permissions:
+  id-token: write  # Required for OIDC
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org/
+
+      - name: Update npm
+        run: npm install -g npm@latest
+
+      - name: Install deps
+        run: npm ci
+        working-directory: apps/cli
+
+      # optional: run tests
+      # - run: npm test
+
+      - name: Build
+        run: npm run build
+        working-directory: apps/cli
+
+      - name: Pack
+        run: npm pack
+        working-directory: apps/cli
+
+      - name: Publish to npm
+        run: npm publish --access public
+        working-directory: apps/cli
+

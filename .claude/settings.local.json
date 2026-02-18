@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git -C \"c:\\\\Users\\\\smith\\\\Documents\\\\1 Projects\\\\rowboat\" remote -v)",
+      "mcp__firecrawl__firecrawl_search",
+      "mcp__firecrawl__firecrawl_scrape",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nAdd design doc: Composio sync + normalization + daily brief\n\nDocuments the architecture for extending Rowboat''s knowledge graph\nwith generic Composio toolkit ingestion, cross-source entity\nnormalization, persistent source references, and a scheduled\ndaily brief agent with rule-based mismatch detection.\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nAdd brainstorming transcript for Composio sync design session\n\nCaptures the full Q&A, approach evaluation, and design decisions\nfrom the brainstorming session that produced the Composio sync +\nnormalization + daily brief design.\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>\nEOF\n\\)\")"
+    ]
+  }
+}
