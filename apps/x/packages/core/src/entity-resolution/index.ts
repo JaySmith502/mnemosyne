@@ -30,3 +30,6 @@ export { resolveEntity, resolveOrCreate } from './matcher.js';
 
 // Confidence scoring
 export { calculateConfidence, SIGNAL_WEIGHTS, createSignal } from './confidence-scorer.js';
+
+// Bootstrap migration
+export { bootstrapEntityIndex } from './bootstrap.js';
