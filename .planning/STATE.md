@@ -10,9 +10,9 @@ See: .planning/PROJECT.md (updated 2026-02-19)
 ## Current Position
 
 Phase: 1 of 5 (Entity Resolution Core)
-Plan: 0 of ? in current phase
-Status: Ready to plan
-Last activity: 2026-02-19 — Roadmap created
+Plan: 0 of 3 in current phase
+Status: Ready to execute
+Last activity: 2026-02-19 — Phase 1 planned (3 plans, 3 waves)
 
 Progress: [░░░░░░░░░░] 0%
 
@@ -57,5 +57,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-19
-Stopped at: Phase 1 context gathered
-Resume file: .planning/phases/01-entity-resolution-core/01-CONTEXT.md
+Stopped at: Phase 1 planned, ready to execute
+Resume file: .planning/phases/01-entity-resolution-core/01-01-PLAN.md
