@@ -10,34 +10,35 @@ See: .planning/PROJECT.md (updated 2026-02-19)
 ## Current Position
 
 Phase: 1 of 5 (Entity Resolution Core)
-Plan: 1 of 3 in current phase
+Plan: 2 of 3 in current phase
 Status: In progress
-Last activity: 2026-02-19 — Completed plan 01-01 (Entity Resolution Foundation)
+Last activity: 2026-02-19 — Completed plan 01-02 (Fuzzy + LLM Matching)
 
-Progress: [██░░░░░░░░] 33%
+Progress: [████░░░░░░] 67%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 1
+- Total plans completed: 2
 - Average duration: 8 min
-- Total execution time: 0.13 hours
+- Total execution time: 0.27 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 01 | 1 | 8 min | 8 min |
+| 01 | 2 | 16 min | 8 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (8 min)
-- Trend: Starting
+- Last 5 plans: 01-01 (8 min), 01-02 (8 min)
+- Trend: Consistent
 
 *Updated after each plan completion*
 
 | Plan | Duration | Tasks | Files |
 |------|----------|-------|-------|
 | Phase 01 P01 | 8 min | 2 tasks | 5 files |
+| Phase 01 P02 | 8 min | 2 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -52,6 +53,10 @@ Recent decisions affecting current work:
 - Plan 01-01: Zod schemas as single source of truth for entity resolution types
 - Plan 01-01: SOR ID takes priority over email in tier1Match (SOR IDs are authoritative)
 - Plan 01-01: Gmail normalization includes dot-stripping to prevent duplicates
+- Plan 01-02: Fuzzy high confidence threshold at 0.85 to avoid LLM escalation for clear matches
+- Plan 01-02: Conservative alias persistence threshold at 0.85 to prevent hallucination persistence
+- Plan 01-02: LLM 'uncertain' as valid decision to avoid forcing low-confidence matches
+- Plan 01-02: getModel factory parameter for tier3LLMMatch decouples from model config system
 
 ### Pending Todos
 
@@ -64,5 +69,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-19
-Stopped at: Completed plan 01-01 (Entity Resolution Foundation)
-Resume file: .planning/phases/01-entity-resolution-core/01-02-PLAN.md
+Stopped at: Completed plan 01-02 (Fuzzy + LLM Matching)
+Resume file: .planning/phases/01-entity-resolution-core/01-03-PLAN.md

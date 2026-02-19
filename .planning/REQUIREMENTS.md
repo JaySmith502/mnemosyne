@@ -11,9 +11,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 - [x] **ERES-01**: System matches entities deterministically by SOR ID (e.g., `gohighlevel:contact:abc123`)
 - [x] **ERES-02**: System matches entities deterministically by email address
-- [ ] **ERES-03**: System matches entities by fuzzy name + organization (Levenshtein + phonetic)
-- [ ] **ERES-04**: System escalates ambiguous matches to LLM for confirmation with structured reasoning
-- [ ] **ERES-05**: LLM-confirmed matches are persisted as aliases for future deterministic matching
+- [x] **ERES-03**: System matches entities by fuzzy name + organization (Levenshtein + phonetic)
+- [x] **ERES-04**: System escalates ambiguous matches to LLM for confirmation with structured reasoning
+- [x] **ERES-05**: LLM-confirmed matches are persisted as aliases for future deterministic matching
 - [x] **ERES-06**: Each match has a confidence score and explainable signals (which fields matched, at what score)
 - [x] **ERES-07**: Entity index stores canonical entities with SOR refs, aliases, relationships, and structured fields
 - [ ] **ERES-08**: Existing Gmail/Calendar entities get entity index entries (email as anchor)
@@ -114,9 +114,9 @@ Deferred to future release. Tracked but not in current roadmap.
 |-------------|-------|--------|
 | ERES-01 | Phase 1 | Complete |
 | ERES-02 | Phase 1 | Complete |
-| ERES-03 | Phase 1 | Pending |
-| ERES-04 | Phase 1 | Pending |
-| ERES-05 | Phase 1 | Pending |
+| ERES-03 | Phase 1 | Complete |
+| ERES-04 | Phase 1 | Complete |
+| ERES-05 | Phase 1 | Complete |
 | ERES-06 | Phase 1 | Complete |
 | ERES-07 | Phase 1 | Complete |
 | ERES-08 | Phase 1 | Pending |
