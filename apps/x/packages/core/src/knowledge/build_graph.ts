@@ -15,6 +15,7 @@ import {
 } from './graph_state.js';
 import { buildKnowledgeIndex, formatIndexForPrompt } from './knowledge_index.js';
 import { limitEventItems } from './limit_event_items.js';
+import { EntityIndex, bootstrapEntityIndex } from '../entity-resolution/index.js';
 
 /**
  * Build obsidian-style knowledge graph by running topic extraction
@@ -615,6 +616,20 @@ async function processAllSources(): Promise<void> {
         console.log('[GraphBuilder] No new content to process');
     } else {
         console.log('[GraphBuilder] Completed processing all sources');
+    }
+
+    // Bootstrap entity index from knowledge entries
+    // Runs incrementally — only indexes entries not yet in entity index
+    try {
+        const entityIndex = new EntityIndex();
+        entityIndex.load();
+        const stats = await bootstrapEntityIndex(entityIndex, { skipLLM: true });
+        if (stats.newEntities > 0 || stats.merged > 0) {
+            console.log(`[GraphBuilder] Entity index updated: ${stats.newEntities} new, ${stats.merged} merged, ${stats.skipped} skipped`);
+        }
+    } catch (error) {
+        console.error('[GraphBuilder] Error bootstrapping entity index:', error);
+        // Non-fatal — don't break the graph builder if entity resolution fails
     }
 }
 
