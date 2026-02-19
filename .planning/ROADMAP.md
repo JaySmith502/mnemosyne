@@ -47,10 +47,12 @@ Plans:
   3. All GHL entities flow through entity resolver and create/update entity index entries before entering knowledge graph
   4. Normalizer config at `~/.rowboat/config/connectors/gohighlevel.json` drives field mappings without code changes
   5. Rate limits respected with exponential backoff (no sync failures from API throttling)
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 02-01: TBD
+- [ ] 02-01-PLAN.md — Sync engine foundation (Zod schemas, normalizer, checkpoint, retry)
+- [ ] 02-02-PLAN.md — GoHighLevel connector (Composio actions, entity writer, manifest)
+- [ ] 02-03-PLAN.md — Service integration (sync orchestrator, entity resolution flow, app lifecycle)
 
 ### Phase 3: Knowledge Graph Integration
 **Goal**: SOR data enriches knowledge graph note creation
@@ -103,7 +105,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Entity Resolution Core | 2/3 | Complete    | 2026-02-19 |
-| 2. Sync Engine + GoHighLevel | 0/? | Not started | - |
+| 2. Sync Engine + GoHighLevel | 0/3 | Not started | - |
 | 3. Knowledge Graph Integration | 0/? | Not started | - |
 | 4. Intelligence Layer | 0/? | Not started | - |
 | 5. UI Enhancements | 0/? | Not started | - |
