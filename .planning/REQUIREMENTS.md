@@ -16,7 +16,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **ERES-05**: LLM-confirmed matches are persisted as aliases for future deterministic matching
 - [x] **ERES-06**: Each match has a confidence score and explainable signals (which fields matched, at what score)
 - [x] **ERES-07**: Entity index stores canonical entities with SOR refs, aliases, relationships, and structured fields
-- [ ] **ERES-08**: Existing Gmail/Calendar entities get entity index entries (email as anchor)
+- [x] **ERES-08**: Existing Gmail/Calendar entities get entity index entries (email as anchor)
 
 ### Connector Framework
 
@@ -119,7 +119,7 @@ Deferred to future release. Tracked but not in current roadmap.
 | ERES-05 | Phase 1 | Complete |
 | ERES-06 | Phase 1 | Complete |
 | ERES-07 | Phase 1 | Complete |
-| ERES-08 | Phase 1 | Pending |
+| ERES-08 | Phase 1 | Complete |
 | CONN-01 | Phase 2 | Pending |
 | CONN-02 | Phase 2 | Pending |
 | CONN-03 | Phase 2 | Pending |
