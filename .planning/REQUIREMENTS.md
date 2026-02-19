@@ -112,55 +112,55 @@ Deferred to future release. Tracked but not in current roadmap.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| ERES-01 | Phase ? | Pending |
-| ERES-02 | Phase ? | Pending |
-| ERES-03 | Phase ? | Pending |
-| ERES-04 | Phase ? | Pending |
-| ERES-05 | Phase ? | Pending |
-| ERES-06 | Phase ? | Pending |
-| ERES-07 | Phase ? | Pending |
-| ERES-08 | Phase ? | Pending |
-| CONN-01 | Phase ? | Pending |
-| CONN-02 | Phase ? | Pending |
-| CONN-03 | Phase ? | Pending |
-| CONN-04 | Phase ? | Pending |
-| CONN-05 | Phase ? | Pending |
-| CONN-06 | Phase ? | Pending |
-| CONN-07 | Phase ? | Pending |
-| GHL-01 | Phase ? | Pending |
-| GHL-02 | Phase ? | Pending |
-| GHL-03 | Phase ? | Pending |
-| GHL-04 | Phase ? | Pending |
-| KGRA-01 | Phase ? | Pending |
-| KGRA-02 | Phase ? | Pending |
-| KGRA-03 | Phase ? | Pending |
-| KGRA-04 | Phase ? | Pending |
-| BREF-01 | Phase ? | Pending |
-| BREF-02 | Phase ? | Pending |
-| BREF-03 | Phase ? | Pending |
-| BREF-04 | Phase ? | Pending |
-| BREF-05 | Phase ? | Pending |
-| BREF-06 | Phase ? | Pending |
-| BREF-07 | Phase ? | Pending |
-| BREF-08 | Phase ? | Pending |
-| TENS-01 | Phase ? | Pending |
-| TENS-02 | Phase ? | Pending |
-| TENS-03 | Phase ? | Pending |
-| TENS-04 | Phase ? | Pending |
-| TENS-05 | Phase ? | Pending |
-| TENS-06 | Phase ? | Pending |
-| UI-01 | Phase ? | Pending |
-| UI-02 | Phase ? | Pending |
-| UI-03 | Phase ? | Pending |
-| UI-04 | Phase ? | Pending |
-| UI-05 | Phase ? | Pending |
-| UI-06 | Phase ? | Pending |
+| ERES-01 | Phase 1 | Pending |
+| ERES-02 | Phase 1 | Pending |
+| ERES-03 | Phase 1 | Pending |
+| ERES-04 | Phase 1 | Pending |
+| ERES-05 | Phase 1 | Pending |
+| ERES-06 | Phase 1 | Pending |
+| ERES-07 | Phase 1 | Pending |
+| ERES-08 | Phase 1 | Pending |
+| CONN-01 | Phase 2 | Pending |
+| CONN-02 | Phase 2 | Pending |
+| CONN-03 | Phase 2 | Pending |
+| CONN-04 | Phase 2 | Pending |
+| CONN-05 | Phase 2 | Pending |
+| CONN-06 | Phase 2 | Pending |
+| CONN-07 | Phase 2 | Pending |
+| GHL-01 | Phase 2 | Pending |
+| GHL-02 | Phase 2 | Pending |
+| GHL-03 | Phase 2 | Pending |
+| GHL-04 | Phase 2 | Pending |
+| KGRA-01 | Phase 3 | Pending |
+| KGRA-02 | Phase 3 | Pending |
+| KGRA-03 | Phase 3 | Pending |
+| KGRA-04 | Phase 3 | Pending |
+| BREF-01 | Phase 4 | Pending |
+| BREF-02 | Phase 4 | Pending |
+| BREF-03 | Phase 4 | Pending |
+| BREF-04 | Phase 4 | Pending |
+| BREF-05 | Phase 4 | Pending |
+| BREF-06 | Phase 4 | Pending |
+| BREF-07 | Phase 4 | Pending |
+| BREF-08 | Phase 4 | Pending |
+| TENS-01 | Phase 4 | Pending |
+| TENS-02 | Phase 4 | Pending |
+| TENS-03 | Phase 4 | Pending |
+| TENS-04 | Phase 4 | Pending |
+| TENS-05 | Phase 4 | Pending |
+| TENS-06 | Phase 4 | Pending |
+| UI-01 | Phase 5 | Pending |
+| UI-02 | Phase 5 | Pending |
+| UI-03 | Phase 5 | Pending |
+| UI-04 | Phase 5 | Pending |
+| UI-05 | Phase 5 | Pending |
+| UI-06 | Phase 5 | Pending |
 
 **Coverage:**
 - v1 requirements: 42 total
-- Mapped to phases: 0
-- Unmapped: 42 (pending roadmap creation)
+- Mapped to phases: 42
+- Unmapped: 0 ✓
 
 ---
 *Requirements defined: 2026-02-19*
-*Last updated: 2026-02-19 after initial definition*
+*Last updated: 2026-02-19 after roadmap revision (dropped Asana/Drive phase)*
