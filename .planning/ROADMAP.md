@@ -30,10 +30,12 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. Each entity match has explainable confidence score showing which fields contributed
   4. Entity index stores canonical entities with SOR refs, aliases, and relationships
   5. Existing Gmail/Calendar entities get entity index entries anchored by email
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 01-01: TBD
+- [ ] 01-01-PLAN.md — Types, entity index, Tier 1 deterministic matching, confidence scorer
+- [ ] 01-02-PLAN.md — Tier 2 fuzzy matching, Tier 3 LLM escalation, alias manager, matcher orchestrator
+- [ ] 01-03-PLAN.md — Bootstrap migration from knowledge index, graph builder integration
 
 ### Phase 2: Sync Engine + GoHighLevel
 **Goal**: Generic config-driven sync engine proven with first SOR connector
@@ -100,7 +102,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Entity Resolution Core | 0/? | Not started | - |
+| 1. Entity Resolution Core | 0/3 | Planned | - |
 | 2. Sync Engine + GoHighLevel | 0/? | Not started | - |
 | 3. Knowledge Graph Integration | 0/? | Not started | - |
 | 4. Intelligence Layer | 0/? | Not started | - |
