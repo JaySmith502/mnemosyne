@@ -6,7 +6,13 @@
       "mcp__firecrawl__firecrawl_scrape",
       "Bash(git add:*)",
       "Bash(git commit -m \"$\\(cat <<''EOF''\nAdd design doc: Composio sync + normalization + daily brief\n\nDocuments the architecture for extending Rowboat''s knowledge graph\nwith generic Composio toolkit ingestion, cross-source entity\nnormalization, persistent source references, and a scheduled\ndaily brief agent with rule-based mismatch detection.\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>\nEOF\n\\)\")",
-      "Bash(git commit -m \"$\\(cat <<''EOF''\nAdd brainstorming transcript for Composio sync design session\n\nCaptures the full Q&A, approach evaluation, and design decisions\nfrom the brainstorming session that produced the Composio sync +\nnormalization + daily brief design.\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>\nEOF\n\\)\")"
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nAdd brainstorming transcript for Composio sync design session\n\nCaptures the full Q&A, approach evaluation, and design decisions\nfrom the brainstorming session that produced the Composio sync +\nnormalization + daily brief design.\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(du:*)",
+      "Bash(while read d)",
+      "Bash(git rm:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nRemove unused apps, add Mnemosyne design doc\n\nRemove apps/rowboat \\(Next.js dashboard\\), apps/rowboatx \\(frontend prototype\\),\napps/cli, apps/python-sdk, apps/docs, and apps/experimental — none are\nreferenced by the Electron app \\(apps/x\\) and add noise to the codebase.\n\nAdd Mnemosyne System of Context design doc covering typed entity index,\nComposio connector framework, daily brief agent, and tension detection.\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(node:*)",
+      "Bash(git commit:*)"
     ]
   }
 }
