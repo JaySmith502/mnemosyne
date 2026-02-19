@@ -12,7 +12,10 @@
       "Bash(git rm:*)",
       "Bash(git commit -m \"$\\(cat <<''EOF''\nRemove unused apps, add Mnemosyne design doc\n\nRemove apps/rowboat \\(Next.js dashboard\\), apps/rowboatx \\(frontend prototype\\),\napps/cli, apps/python-sdk, apps/docs, and apps/experimental — none are\nreferenced by the Electron app \\(apps/x\\) and add noise to the codebase.\n\nAdd Mnemosyne System of Context design doc covering typed entity index,\nComposio connector framework, daily brief agent, and tension detection.\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>\nEOF\n\\)\")",
       "Bash(node:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(test:*)",
+      "mcp__plugin_context7_context7__resolve-library-id",
+      "mcp__plugin_context7_context7__query-docs"
     ]
   }
 }
