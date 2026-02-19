@@ -1,6 +1,6 @@
 import { distance } from 'fastest-levenshtein';
 import { metaphone } from 'metaphone';
-import { normalizeEmail, normalizeName } from './types.js';
+import { normalizeName } from './types.js';
 import { EntityIndex } from './entity-index.js';
 import type { EntityIndexEntry, MatchSignal } from './types.js';
 import { createSignal, calculateConfidence } from './confidence-scorer.js';
