@@ -74,6 +74,20 @@ When you need to:
 
 **Only use \`cat\` to read full note content** when you need details not in the index (e.g., existing activity logs, open items).
 
+# Entity Index Context
+
+You may receive an **Entity Index Context** section in the message alongside the Knowledge Base Index. This contains cross-system entity data from Systems of Record (GoHighLevel, etc.).
+
+**When Entity Index Context is provided:**
+- Entities listed have additional context from external systems (CRM, calendars, etc.)
+- Use the entity_id, sor_refs, and entity_type from the context when writing notes for these entities
+- Include YAML frontmatter at the top of notes for entities that have entity index matches
+- Weave SOR data into a unified narrative — do NOT create separate sections per source system
+
+**When no Entity Index Context is provided:**
+- Process normally using just the Knowledge Base Index
+- Do not add YAML frontmatter unless the entity has known cross-system references
+
 # Tools Available
 
 You have access to these tools:
@@ -174,10 +188,16 @@ workspace-readFile({ path: "{source_file}" })
 - Has \`**Path:**\` field with path like \`Voice Memos/YYYY-MM-DD/...\`
 - Has \`## Transcript\` section
 
+**SOR data indicators:**
+- Has YAML frontmatter with \`sor_id:\` field
+- File path contains \`composio_sync/\`
+- Has structured entity data (contacts, opportunities, conversations)
+
 **Set processing mode:**
 - \`source_type = "meeting"\` → Can create new notes
 - \`source_type = "email"\` → Can create notes if personalized and relevant
 - \`source_type = "voice_memo"\` → Can create new notes (treat like meetings)
+- \`source_type = "sor"\` → Can create new notes AND update existing ones (SOR data is authoritative)
 
 ---
 
@@ -214,6 +234,17 @@ Emails containing calendar invites (\`.ics\` attachments or inline calendar data
 - "Declined: Sync" from john@example.com → SKIP (RSVP, not a new relationship)
 
 **Why this matters:** Once a note exists, subsequent emails from this person will enrich it. When the meeting happens, the transcript adds more detail.
+
+---
+
+## Updating Existing Notes with SOR Data
+
+When processing SOR source files (composio_sync/):
+- If a matching note already exists (matched via Entity Index Context), UPDATE it rather than creating a new one
+- Preserve all manual edits — only add/update structured fields and activity entries
+- Merge sor_refs in frontmatter: add new SOR references, keep existing ones
+- Add activity entry with source type "sor": \`**{YYYY-MM-DD}** (sor): {Summary}\`
+- Update Info fields with SOR data when SOR provides more complete information (SOR wins for structured data)
 
 ---
 
@@ -1029,6 +1060,14 @@ After writing, verify links go both ways.
 
 ## People
 \`\`\`markdown
+---
+entity_id: "{entity_id from Entity Index Context, omit field if not matched}"
+entity_type: person
+sor_refs:
+  - system: "{system name}"
+    id: "{id}"
+---
+
 # {Full Name}
 
 ## Info
@@ -1055,10 +1094,28 @@ After writing, verify links go both ways.
 
 ## Open items
 {Commitments and next steps only. Leave empty if none.}
+
+## Sources
+
+This note is enriched with data from:
+
+- **{System Name}**: {N} references
 \`\`\`
+
+**Include YAML frontmatter ONLY for entities that appear in the Entity Index Context or have known SOR references.** For entities with no cross-system references, omit the frontmatter block entirely. The frontmatter is hidden in Obsidian reading view.
+
+**ALWAYS include the ## Sources section**, even for single-source entities. List each contributing system with its display name and reference count. Use these display names: 'GoHighLevel' for gohighlevel, 'Gmail' for gmail, 'Google Calendar' for calendar, 'Fireflies' for fireflies, 'Granola' for granola, 'Manual Notes' for knowledge. If the entity has no SOR refs, write: 'This note is based on knowledge graph sources.' The Sources section must be the LAST section in the note.
 
 ## Organizations
 \`\`\`markdown
+---
+entity_id: "{entity_id from Entity Index Context, omit field if not matched}"
+entity_type: organization
+sor_refs:
+  - system: "{system name}"
+    id: "{id}"
+---
+
 # {Organization Name}
 
 ## Info
@@ -1090,10 +1147,24 @@ After writing, verify links go both ways.
 
 ## Open items
 {Commitments and next steps only. Leave empty if none.}
+
+## Sources
+
+This note is enriched with data from:
+
+- **{System Name}**: {N} references
 \`\`\`
 
 ## Projects
 \`\`\`markdown
+---
+entity_id: "{entity_id from Entity Index Context, omit field if not matched}"
+entity_type: project
+sor_refs:
+  - system: "{system name}"
+    id: "{id}"
+---
+
 # {Project Name}
 
 ## Info
@@ -1127,10 +1198,24 @@ After writing, verify links go both ways.
 
 ## Key facts
 {Substantive facts only. Leave empty if none.}
+
+## Sources
+
+This note is enriched with data from:
+
+- **{System Name}**: {N} references
 \`\`\`
 
 ## Topics
 \`\`\`markdown
+---
+entity_id: "{entity_id from Entity Index Context, omit field if not matched}"
+entity_type: topic
+sor_refs:
+  - system: "{system name}"
+    id: "{id}"
+---
+
 # {Topic Name}
 
 ## About
@@ -1158,6 +1243,12 @@ After writing, verify links go both ways.
 
 ## Key facts
 {Substantive facts only. Leave empty if none.}
+
+## Sources
+
+This note is enriched with data from:
+
+- **{System Name}**: {N} references
 \`\`\`
 
 ---
