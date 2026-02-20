@@ -16,6 +16,7 @@ import {
 import { buildKnowledgeIndex, formatIndexForPrompt } from './knowledge_index.js';
 import { limitEventItems } from './limit_event_items.js';
 import { EntityIndex, bootstrapEntityIndex } from '../entity-resolution/index.js';
+import { postProcessBatchNotes } from './note_postprocessor.js';
 
 /**
  * Build obsidian-style knowledge graph by running topic extraction
@@ -404,6 +405,20 @@ async function buildGraphWithFiles(
                 notesModified.add(note);
             }
 
+            // Post-process notes to ensure deterministic Sources sections
+            const allBatchNotes = [...batchResult.notesCreated, ...batchResult.notesModified];
+            if (allBatchNotes.length > 0) {
+                try {
+                    const ppResult = postProcessBatchNotes(allBatchNotes, WorkDir);
+                    if (ppResult.processed > 0) {
+                        console.log(`[buildGraph] Post-processed ${ppResult.processed} notes (${ppResult.errors} errors)`);
+                    }
+                } catch (error) {
+                    console.error('[buildGraph] Error in note post-processing:', error);
+                    // Non-fatal — don't break the batch on post-processing failure
+                }
+            }
+
             // Mark files in this batch as processed
             for (const file of batch) {
                 markFileAsProcessed(file.path, state);
@@ -558,6 +573,19 @@ async function processVoiceMemosForKnowledge(): Promise<boolean> {
             }
             for (const note of batchResult.notesModified) {
                 notesModified.add(note);
+            }
+
+            // Post-process voice memo notes
+            const allVoiceNotes = [...batchResult.notesCreated, ...batchResult.notesModified];
+            if (allVoiceNotes.length > 0) {
+                try {
+                    const ppResult = postProcessBatchNotes(allVoiceNotes, WorkDir);
+                    if (ppResult.processed > 0) {
+                        console.log(`[GraphBuilder] Post-processed ${ppResult.processed} voice memo notes`);
+                    }
+                } catch (error) {
+                    console.error('[GraphBuilder] Error post-processing voice memo notes:', error);
+                }
             }
 
             // Mark files as processed
