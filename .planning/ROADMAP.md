@@ -63,10 +63,11 @@ Plans:
   2. Entity notes in `~/.rowboat/knowledge/` include YAML frontmatter with SOR references and entity type
   3. Entity notes include Sources section listing all contributing systems (Gmail, Calendar, GoHighLevel)
   4. Chokidar watcher processes both `composio_sync/` and manual edits to entity Markdown files
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 03-01: TBD
+- [ ] 03-01-PLAN.md — Entity context injection into graph builder and note template enrichment
+- [ ] 03-02-PLAN.md — Deterministic Sources section post-processor and graph builder integration
 
 ### Phase 4: Intelligence Layer
 **Goal**: Proactive insights delivered via tension detection and daily brief
