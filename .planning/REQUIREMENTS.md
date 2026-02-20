@@ -37,10 +37,10 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Knowledge Graph Integration
 
-- [ ] **KGRA-01**: `build_graph.ts` processes `composio_sync/` as an additional source folder
-- [ ] **KGRA-02**: Note creation agent prompts enriched with entity index context (SOR refs, relationships)
-- [ ] **KGRA-03**: Entity notes include YAML frontmatter with SOR refs and entity type
-- [ ] **KGRA-04**: Entity notes include `## Sources` section listing all contributing systems
+- [x] **KGRA-01**: `build_graph.ts` processes `composio_sync/` as an additional source folder
+- [x] **KGRA-02**: Note creation agent prompts enriched with entity index context (SOR refs, relationships)
+- [x] **KGRA-03**: Entity notes include YAML frontmatter with SOR refs and entity type
+- [x] **KGRA-04**: Entity notes include `## Sources` section listing all contributing systems
 
 ### Daily Brief
 
@@ -131,10 +131,10 @@ Deferred to future release. Tracked but not in current roadmap.
 | GHL-02 | Phase 2 | Complete |
 | GHL-03 | Phase 2 | Complete |
 | GHL-04 | Phase 2 | Complete |
-| KGRA-01 | Phase 3 | Pending |
-| KGRA-02 | Phase 3 | Pending |
-| KGRA-03 | Phase 3 | Pending |
-| KGRA-04 | Phase 3 | Pending |
+| KGRA-01 | Phase 3 | Complete |
+| KGRA-02 | Phase 3 | Complete |
+| KGRA-03 | Phase 3 | Complete |
+| KGRA-04 | Phase 3 | Complete |
 | BREF-01 | Phase 4 | Pending |
 | BREF-02 | Phase 4 | Pending |
 | BREF-03 | Phase 4 | Pending |

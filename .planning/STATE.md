@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-02-19)
 
 **Core value:** SOR data and SOE activity unified in a single entity-resolved knowledge graph, so nothing falls through the cracks between systems.
-**Current focus:** Phase 2 - Sync Engine + GoHighLevel
+**Current focus:** Phase 3 - Knowledge Graph Integration
 
 ## Current Position
 
-Phase: 2 of 5 (Sync Engine + GoHighLevel)
-Plan: 3 of 3 in current phase
+Phase: 3 of 5 (Knowledge Graph Integration)
+Plan: 1 of 2 in current phase
 Status: Complete
-Last activity: 2026-02-20 — Completed plan 02-03 (Sync Engine Orchestrator and Lifecycle Integration)
+Last activity: 2026-02-20 — Completed plan 03-01 (Entity Context Injection)
 
-Progress: [████████░░] 100%
+Progress: [████████░░] 50%
 
 ## Performance Metrics
 
@@ -44,6 +44,7 @@ Progress: [████████░░] 100%
 | Phase 02 P01 | 4 min | 2 tasks | 4 files |
 | Phase 02 P02 | 27 min | 2 tasks | 2 files |
 | Phase 02 P03 | 6 min | 2 tasks | 6 files |
+| Phase 03 P01 | 9 | 2 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -80,6 +81,10 @@ Recent decisions affecting current work:
 - Plan 02-03: Fixed 5-minute sync interval (not configurable)
 - Plan 02-03: Auto-start on app launch if connectors configured
 - Plan 02-03: connectionParams in NormalizerConfigSchema for toolkit-specific connection info
+- [Phase 03]: EntityIndex loaded once per processing cycle for performance (expensive disk read)
+- [Phase 03]: YAML frontmatter only for entity index matches to avoid clutter in non-SOR notes
+- [Phase 03]: Sources section always last in note templates for consistent structure
+- [Phase 03]: SOR data wins for structured field conflicts (authoritative source)
 
 ### Pending Todos
 
