@@ -35,7 +35,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 Plans:
 - [x] 01-01-PLAN.md — Types, entity index, Tier 1 deterministic matching, confidence scorer
 - [x] 01-02-PLAN.md — Tier 2 fuzzy matching, Tier 3 LLM escalation, alias manager, matcher orchestrator
-- [ ] 01-03-PLAN.md — Bootstrap migration from knowledge index, graph builder integration
+- [x] 01-03-PLAN.md — Bootstrap migration from knowledge index, graph builder integration
 
 ### Phase 2: Sync Engine + GoHighLevel
 **Goal**: Generic config-driven sync engine proven with first SOR connector
@@ -50,7 +50,7 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 02-01-PLAN.md — Sync engine foundation (Zod schemas, normalizer, checkpoint, retry)
+- [x] 02-01-PLAN.md — Sync engine foundation (Zod schemas, normalizer, checkpoint, retry)
 - [ ] 02-02-PLAN.md — GoHighLevel connector (Composio actions, entity writer, manifest)
 - [ ] 02-03-PLAN.md — Service integration (sync orchestrator, entity resolution flow, app lifecycle)
 

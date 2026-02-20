@@ -32,15 +32,15 @@ export function loadNormalizerConfig(toolkit: string): NormalizerConfig {
 /**
  * Resolve nested object values using dot notation (e.g., "user.email")
  */
-export function getNestedValue(obj: Record<string, any>, path: string): any {
+export function getNestedValue(obj: Record<string, unknown>, path: string): unknown {
     const segments = path.split('.');
-    let value: any = obj;
+    let value: unknown = obj;
 
     for (const segment of segments) {
         if (value === null || value === undefined) {
             return undefined;
         }
-        value = value[segment];
+        value = (value as Record<string, unknown>)[segment];
     }
 
     return value;
@@ -49,9 +49,9 @@ export function getNestedValue(obj: Record<string, any>, path: string): any {
 /**
  * Apply field mapping transformation to source data
  */
-export function applyFieldMapping(sourceData: Record<string, any>, mapping: FieldMapping): any {
+export function applyFieldMapping(sourceData: Record<string, unknown>, mapping: FieldMapping): unknown {
     // Extract value(s) from source
-    let value: any;
+    let value: unknown;
 
     if (Array.isArray(mapping.source)) {
         // Concat multiple source fields
@@ -118,10 +118,11 @@ export function applyFieldMapping(sourceData: Record<string, any>, mapping: Fiel
             case 'string':
                 value = String(value);
                 break;
-            case 'number':
+            case 'number': {
                 const num = Number(value);
                 value = isNaN(num) ? value : num;
                 break;
+            }
             case 'boolean':
                 if (typeof value === 'string') {
                     value = value.toLowerCase() === 'true' || value === '1';
@@ -143,8 +144,8 @@ export function applyFieldMapping(sourceData: Record<string, any>, mapping: Fiel
 /**
  * Normalize entity data using entity configuration
  */
-export function normalizeEntity(sourceData: Record<string, any>, entityConfig: EntityConfig): NormalizedEntity {
-    const fields: Record<string, any> = {};
+export function normalizeEntity(sourceData: Record<string, unknown>, entityConfig: EntityConfig): NormalizedEntity {
+    const fields: Record<string, unknown> = {};
 
     // Apply field mappings
     for (const [targetField, mapping] of Object.entries(entityConfig.fields)) {

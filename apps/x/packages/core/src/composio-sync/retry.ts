@@ -53,15 +53,17 @@ export class RetryableOperation {
      * Check if error is retryable
      */
     private isRetryable(error: unknown): boolean {
+        const err = error as { response?: { status?: number }; code?: string };
+
         // Check for HTTP status codes
-        if (error?.response?.status) {
-            return this.options.retryableStatusCodes.includes(error.response.status);
+        if (err?.response?.status) {
+            return this.options.retryableStatusCodes.includes(err.response.status);
         }
 
         // Check for network error codes
-        if (error?.code) {
+        if (err?.code) {
             const retryableCodes = ['ETIMEDOUT', 'ECONNRESET', 'ECONNREFUSED'];
-            return retryableCodes.includes(error.code);
+            return retryableCodes.includes(err.code);
         }
 
         return false;
@@ -70,8 +72,9 @@ export class RetryableOperation {
     /**
      * Extract Retry-After header value in milliseconds
      */
-    private getRetryAfter(error: any): number | null {
-        const retryAfter = error?.response?.headers?.['retry-after'];
+    private getRetryAfter(error: unknown): number | null {
+        const err = error as { response?: { headers?: Record<string, string> } };
+        const retryAfter = err?.response?.headers?.['retry-after'];
 
         if (!retryAfter) {
             return null;
@@ -91,7 +94,7 @@ export class RetryableOperation {
      * Execute function with retry logic
      */
     async execute<T>(fn: () => Promise<T>): Promise<T> {
-        let lastError: any;
+        let lastError: unknown;
 
         for (let attempt = 1; attempt <= this.options.maxAttempts; attempt++) {
             try {
@@ -116,10 +119,9 @@ export class RetryableOperation {
                 // Calculate delay
                 let delay: number;
 
-                // Calculate delay
-                const err = error as any;
-
                 // Check for Retry-After header (429 responses)
+                const err = error as { response?: { status?: number; headers?: Record<string, string> }; message?: string };
+
                 if (err?.response?.status === 429) {
                     const retryAfter = this.getRetryAfter(err);
                     if (retryAfter !== null) {

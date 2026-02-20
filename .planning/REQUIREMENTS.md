@@ -20,11 +20,11 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Connector Framework
 
-- [ ] **CONN-01**: Single generic sync engine reads normalizer configs and produces normalized entities
-- [ ] **CONN-02**: Normalizer configs are JSON files defining field mappings per SOR entity type
-- [ ] **CONN-03**: Sync engine supports incremental sync via timestamp-based delta detection
-- [ ] **CONN-04**: Sync engine resumes from checkpoint if interrupted mid-sync
-- [ ] **CONN-05**: Sync engine respects per-connector rate limits with exponential backoff + jitter
+- [x] **CONN-01**: Single generic sync engine reads normalizer configs and produces normalized entities
+- [x] **CONN-02**: Normalizer configs are JSON files defining field mappings per SOR entity type
+- [x] **CONN-03**: Sync engine supports incremental sync via timestamp-based delta detection
+- [x] **CONN-04**: Sync engine resumes from checkpoint if interrupted mid-sync
+- [x] **CONN-05**: Sync engine respects per-connector rate limits with exponential backoff + jitter
 - [ ] **CONN-06**: Sync runs on configurable schedule (default: every 5 minutes)
 - [ ] **CONN-07**: Each sync cycle writes Markdown + manifest to `~/.rowboat/composio_sync/{toolkit}/`
 
@@ -120,11 +120,11 @@ Deferred to future release. Tracked but not in current roadmap.
 | ERES-06 | Phase 1 | Complete |
 | ERES-07 | Phase 1 | Complete |
 | ERES-08 | Phase 1 | Complete |
-| CONN-01 | Phase 2 | Pending |
-| CONN-02 | Phase 2 | Pending |
-| CONN-03 | Phase 2 | Pending |
-| CONN-04 | Phase 2 | Pending |
-| CONN-05 | Phase 2 | Pending |
+| CONN-01 | Phase 2 | Complete |
+| CONN-02 | Phase 2 | Complete |
+| CONN-03 | Phase 2 | Complete |
+| CONN-04 | Phase 2 | Complete |
+| CONN-05 | Phase 2 | Complete |
 | CONN-06 | Phase 2 | Pending |
 | CONN-07 | Phase 2 | Pending |
 | GHL-01 | Phase 2 | Pending |
