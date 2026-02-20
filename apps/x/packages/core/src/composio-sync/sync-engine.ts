@@ -5,7 +5,7 @@ import { loadNormalizerConfig, normalizeEntity } from './normalizer.js';
 import { CheckpointManager } from './checkpoint.js';
 import { RetryableOperation } from './retry.js';
 import { writeEntityFile, writeManifest } from './writer.js';
-import type { NormalizerConfig, SyncManifest, NormalizedEntity } from './types.js';
+import type { SyncManifest } from './types.js';
 import { EntityIndex, resolveOrCreate } from '../entity-resolution/index.js';
 import { serviceLogger } from '../services/service_logger.js';
 import { GHLConnector } from './connectors/gohighlevel.js';

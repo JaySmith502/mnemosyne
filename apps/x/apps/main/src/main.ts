@@ -17,6 +17,7 @@ import { init as initCalendarSync } from "@x/core/dist/knowledge/sync_calendar.j
 import { init as initFirefliesSync } from "@x/core/dist/knowledge/sync_fireflies.js";
 import { init as initGranolaSync } from "@x/core/dist/knowledge/granola/sync.js";
 import { init as initGraphBuilder } from "@x/core/dist/knowledge/build_graph.js";
+import { init as initComposioSync } from "@x/core/dist/composio-sync/sync-engine.js";
 import { init as initPreBuiltRunner } from "@x/core/dist/pre_built/runner.js";
 import { init as initAgentRunner } from "@x/core/dist/agent-schedule/runner.js";
 import { initConfigs } from "@x/core/dist/config/initConfigs.js";
@@ -170,6 +171,9 @@ app.whenReady().then(async () => {
 
   // start knowledge graph builder
   initGraphBuilder();
+
+  // start composio sync
+  initComposioSync();
 
   // start pre-built agent runner
   initPreBuiltRunner();
