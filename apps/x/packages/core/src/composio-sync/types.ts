@@ -36,6 +36,7 @@ export const NormalizerConfigSchema = z.object({
     toolkit: z.string(),
     version: z.literal(1),
     entities: z.record(z.string(), EntityConfigSchema),
+    connectionParams: z.record(z.string(), z.string()).optional(),
 });
 export type NormalizerConfig = z.infer<typeof NormalizerConfigSchema>;
 

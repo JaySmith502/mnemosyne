@@ -7,6 +7,7 @@ export const ServiceName = z.enum([
   'fireflies',
   'granola',
   'voice_memo',
+  'composio_sync',
 ]);
 
 const ServiceEventBase = z.object({
