@@ -25,7 +25,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **CONN-03**: Sync engine supports incremental sync via timestamp-based delta detection
 - [x] **CONN-04**: Sync engine resumes from checkpoint if interrupted mid-sync
 - [x] **CONN-05**: Sync engine respects per-connector rate limits with exponential backoff + jitter
-- [ ] **CONN-06**: Sync runs on configurable schedule (default: every 5 minutes)
+- [x] **CONN-06**: Sync runs on configurable schedule (default: every 5 minutes)
 - [x] **CONN-07**: Each sync cycle writes Markdown + manifest to `~/.rowboat/composio_sync/{toolkit}/`
 
 ### GoHighLevel Integration
@@ -33,7 +33,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **GHL-01**: Contacts sync (name, email, phone, company, tags)
 - [x] **GHL-02**: Opportunities sync (deal name, stage, value, linked contact)
 - [x] **GHL-03**: Conversations sync (recent messages linked to contact)
-- [ ] **GHL-04**: All GHL data flows through entity resolver before entering knowledge graph
+- [x] **GHL-04**: All GHL data flows through entity resolver before entering knowledge graph
 
 ### Knowledge Graph Integration
 
@@ -125,12 +125,12 @@ Deferred to future release. Tracked but not in current roadmap.
 | CONN-03 | Phase 2 | Complete |
 | CONN-04 | Phase 2 | Complete |
 | CONN-05 | Phase 2 | Complete |
-| CONN-06 | Phase 2 | Pending |
+| CONN-06 | Phase 2 | Complete |
 | CONN-07 | Phase 2 | Complete |
 | GHL-01 | Phase 2 | Complete |
 | GHL-02 | Phase 2 | Complete |
 | GHL-03 | Phase 2 | Complete |
-| GHL-04 | Phase 2 | Pending |
+| GHL-04 | Phase 2 | Complete |
 | KGRA-01 | Phase 3 | Pending |
 | KGRA-02 | Phase 3 | Pending |
 | KGRA-03 | Phase 3 | Pending |
