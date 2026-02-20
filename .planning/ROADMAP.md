@@ -13,7 +13,7 @@ Mnemosyne bridges Systems of Record and Systems of Engagement through entity-res
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Entity Resolution Core** - Build entity index and 3-tier resolver with alias persistence (completed 2026-02-19)
-- [ ] **Phase 2: Sync Engine + GoHighLevel** - Generic sync engine with config-driven normalization, first SOR connector
+- [x] **Phase 2: Sync Engine + GoHighLevel** - Generic sync engine with config-driven normalization, first SOR connector (completed 2026-02-20)
 - [ ] **Phase 3: Knowledge Graph Integration** - Enrich note creation with entity index, SOR references in frontmatter
 - [ ] **Phase 4: Intelligence Layer** - Tension detection and daily brief agents
 - [ ] **Phase 5: UI Enhancements** - Connector management, brief quick-access, graph tension badges
@@ -105,7 +105,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Entity Resolution Core | 2/3 | Complete    | 2026-02-19 |
-| 2. Sync Engine + GoHighLevel | 0/3 | Not started | - |
+| 2. Sync Engine + GoHighLevel | 0/3 | Complete    | 2026-02-20 |
 | 3. Knowledge Graph Integration | 0/? | Not started | - |
 | 4. Intelligence Layer | 0/? | Not started | - |
 | 5. UI Enhancements | 0/? | Not started | - |
