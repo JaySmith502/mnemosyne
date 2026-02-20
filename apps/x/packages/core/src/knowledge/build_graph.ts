@@ -159,12 +159,92 @@ async function waitForRunCompletion(runId: string): Promise<void> {
 }
 
 /**
+ * Build entity context from a batch of files using the EntityIndex
+ * Extracts emails and SOR IDs from file content and frontmatter, looks up matching entities
+ */
+function buildEntityContext(
+    files: { path: string; content: string }[],
+    entityIndex: EntityIndex
+): string {
+    const matchedEntities = new Map<string, any>();
+
+    for (const file of files) {
+        // Extract emails from file content using regex
+        const emailPattern = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g;
+        const emailMatches = file.content.match(emailPattern) || [];
+
+        for (const email of emailMatches) {
+            const entity = entityIndex.findByEmail(email);
+            if (entity) {
+                matchedEntities.set(entity.entityId, entity);
+            }
+        }
+
+        // Check if file is from composio_sync and has YAML frontmatter
+        if (file.path.includes('composio_sync')) {
+            // Extract YAML frontmatter between --- delimiters
+            const frontmatterMatch = file.content.match(/^---\s*\n([\s\S]*?)\n---/);
+            if (frontmatterMatch) {
+                const frontmatter = frontmatterMatch[1];
+
+                // Extract sor_id field (format: "system:id")
+                const sorIdMatch = frontmatter.match(/sor_id:\s*["']?([^"'\n]+)["']?/);
+                if (sorIdMatch) {
+                    const sorId = sorIdMatch[1].trim();
+                    const [system, id] = sorId.split(':');
+                    if (system && id) {
+                        const entity = entityIndex.findBySorId(system, id);
+                        if (entity) {
+                            matchedEntities.set(entity.entityId, entity);
+                        }
+                    }
+                }
+
+                // Extract email from frontmatter
+                const emailMatch = frontmatter.match(/email:\s*["']?([^"'\n]+)["']?/);
+                if (emailMatch) {
+                    const email = emailMatch[1].trim();
+                    const entity = entityIndex.findByEmail(email);
+                    if (entity) {
+                        matchedEntities.set(entity.entityId, entity);
+                    }
+                }
+            }
+        }
+    }
+
+    // No matches found
+    if (matchedEntities.size === 0) {
+        return 'No entity index matches for this batch.\n';
+    }
+
+    // Format matched entities as markdown
+    let output = '## Matched Entities from Entity Index\n\n';
+    output += 'These entities have cross-system context. When creating/updating notes for these entities, include their entity_id and sor_refs in YAML frontmatter.\n\n';
+
+    for (const entity of matchedEntities.values()) {
+        const emailDisplay = entity.email || 'no email';
+        const systems = entity.sorRefs.map((ref: any) => ref.system).join(', ');
+        const orgDisplay = entity.organization || 'none';
+
+        output += `- **${entity.name}** (${emailDisplay})\n`;
+        output += `  - Entity ID: ${entity.entityId}\n`;
+        output += `  - Sources: ${systems}\n`;
+        output += `  - Organization: ${orgDisplay}\n`;
+        output += `  - Confidence: ${entity.confidence}\n`;
+    }
+
+    return output;
+}
+
+/**
  * Run note creation agent on a batch of files to extract entities and create/update notes
  */
 async function createNotesFromBatch(
     files: { path: string; content: string }[],
     batchNumber: number,
-    knowledgeIndex: string
+    knowledgeIndex: string,
+    entityContext: string
 ): Promise<{ runId: string; notesCreated: Set<string>; notesModified: Set<string> }> {
     // Ensure notes output directory exists
     if (!fs.existsSync(NOTES_OUTPUT_DIR)) {
@@ -189,6 +269,10 @@ async function createNotesFromBatch(
     // Add the knowledge base index
     message += `---\n\n`;
     message += knowledgeIndex;
+    message += `\n---\n\n`;
+
+    // Add entity context
+    message += entityContext;
     message += `\n---\n\n`;
 
     // Add each file's content
@@ -273,6 +357,10 @@ async function buildGraphWithFiles(
     const notesModified = new Set<string>();
     let hadError = false;
 
+    // Load entity index once for all batches
+    const entityIndex = new EntityIndex();
+    entityIndex.load();
+
     // Process files in batches
     for (let i = 0; i < contentFiles.length; i += BATCH_SIZE) {
         const batch = contentFiles.slice(i, i + BATCH_SIZE);
@@ -286,6 +374,9 @@ async function buildGraphWithFiles(
             const indexForPrompt = formatIndexForPrompt(index);
             const indexDuration = ((Date.now() - indexStartTime) / 1000).toFixed(2);
             console.log(`Index built in ${indexDuration}s: ${index.people.length} people, ${index.organizations.length} orgs, ${index.projects.length} projects, ${index.topics.length} topics, ${index.other.length} other`);
+
+            // Build entity context for this batch
+            const entityContext = buildEntityContext(batch, entityIndex);
 
             console.log(`Processing batch ${batchNumber}/${totalBatches} (${batch.length} files)...`);
             if (run) {
@@ -302,7 +393,7 @@ async function buildGraphWithFiles(
                 });
             }
             const agentStartTime = Date.now();
-            const batchResult = await createNotesFromBatch(batch, batchNumber, indexForPrompt);
+            const batchResult = await createNotesFromBatch(batch, batchNumber, indexForPrompt, entityContext);
             const agentDuration = ((Date.now() - agentStartTime) / 1000).toFixed(2);
             console.log(`Batch ${batchNumber}/${totalBatches} complete in ${agentDuration}s`);
 
@@ -430,6 +521,10 @@ async function processVoiceMemosForKnowledge(): Promise<boolean> {
     const notesModified = new Set<string>();
     let hadError = false;
 
+    // Load entity index once for all batches
+    const entityIndex = new EntityIndex();
+    entityIndex.load();
+
     for (let i = 0; i < contentFiles.length; i += BATCH_SIZE) {
         const batch = contentFiles.slice(i, i + BATCH_SIZE);
         const batchNumber = Math.floor(i / BATCH_SIZE) + 1;
@@ -439,6 +534,9 @@ async function processVoiceMemosForKnowledge(): Promise<boolean> {
             console.log(`[GraphBuilder] Building knowledge index for batch ${batchNumber}...`);
             const index = buildKnowledgeIndex();
             const indexForPrompt = formatIndexForPrompt(index);
+
+            // Build entity context for this batch
+            const entityContext = buildEntityContext(batch, entityIndex);
 
             console.log(`[GraphBuilder] Processing batch ${batchNumber}/${totalBatches} (${batch.length} files)...`);
             await serviceLogger.log({
@@ -452,7 +550,7 @@ async function processVoiceMemosForKnowledge(): Promise<boolean> {
                 total: totalBatches,
                 details: { filesInBatch: batch.length },
             });
-            const batchResult = await createNotesFromBatch(batch, batchNumber, indexForPrompt);
+            const batchResult = await createNotesFromBatch(batch, batchNumber, indexForPrompt, entityContext);
             console.log(`[GraphBuilder] Batch ${batchNumber}/${totalBatches} complete`);
 
             for (const note of batchResult.notesCreated) {
